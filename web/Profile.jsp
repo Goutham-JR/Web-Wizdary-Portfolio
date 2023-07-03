@@ -734,7 +734,7 @@
             String AccountType = "";
             String Gender = "";
             String DOB = "";
-            String AID = "";
+            String AID="";
             try {
                 AID = request.getParameter("AID");
                 rst = stmt.executeQuery("SELECT * FROM account WHERE AID='" + AID + "'");
@@ -751,7 +751,35 @@
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            
+            String Bio="";
+            String Instagram="";
+            String Facebook="";
+            String LinkedIn ="";
+            String City="";
+            String Residence ="";
+            String Experience="";
+            String CompletedProjects="";
+            String reviewedCustomers ="";
+            String Achivements ="";
+            
+             try {
+                rst = stmt.executeQuery("SELECT * FROM profile WHERE AID='" + AID + "'");
+                if (rst.next()) {
+                    Bio = rst.getString(3);
+                    Instagram = rst.getString(4);
+                    Facebook = rst.getString(5);
+                    LinkedIn = rst.getString(6);
+                    City = rst.getString(7);
+                    Residence = rst.getString(8);
+                    Experience = rst.getString(9);
+                    CompletedProjects = rst.getString(10);
+                    reviewedCustomers = rst.getString(11);
+                    Achivements = rst.getString(12);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         %>
         <br />
         <br />
@@ -767,15 +795,7 @@
             <div class="profile-about">
                 <h2><%=PName%> 
                     <% if (AccountType.equals("Verified")) {%><i class="uil uil-comment-verify" style="color: yellow;"></i><%}%> </h2>
-                <p>Sed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin nibh ac
-                    rhoncus.
-                    Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac, tincidunt arcu.
-                    Vivamus
-                    in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque malesuada,
-                    justo ex
-                    sagittis quam, in suscipit nisl libero vitae massa. Donec nec fringilla ex. Praesent a
-                    erat vel
-                    quam dignissim facilisis sed nec dolor.
+                <p><%=Bio %>
                 </p>
             </div>
             <%
@@ -790,9 +810,9 @@
             </div>
             <%}%>
             <div class="social-media">
-                <i class="fa fa-facebook" id="facebook"></i>
-                <i class="fa fa-instagram" id="instagram"></i>
-                <i class="fa fa-linkedin" id="linkedin"></i>
+                <a href="<%=Facebook %>"><i class="fa fa-facebook" id="facebook"></i></a>
+                <a href="<%=Instagram %>"><i class="fa fa-instagram" id="instagram"></i></a>
+                <a href="<%=LinkedIn %>"><i class="fa fa-linkedin" id="linkedin"></i></a>
             </div>
 
             <div class="profile-details">
