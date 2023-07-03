@@ -262,10 +262,10 @@
             <nav>
                 <ul>
                     <li>
-                        <form>
+                        <form action="SearchProfile.jsp" method="POST">
                             <div class="search-box">
                                 <button1 class="btn-search"><i class="fas fa-search"></i></button1>
-                                <input type="text" id="search" class="input-search" placeholder="Type to Search...">
+                                <input type="text" id="search" class="input-search" name="username" placeholder="Type to Search...">
                             </div>
                         </form>
                     </li>
