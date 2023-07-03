@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp" %>
 <%@include file="Secure/Config.jsp" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -725,61 +727,61 @@
 
     <body>
         <%
-            if(session.getAttribute("SessionUser") != null){
-            String PName = "";
-            String Username = "";
-            String Email = "";
-            String PhoneNo = "";
-            String Address = "";
-            String AccountType = "";
-            String Gender = "";
-            String DOB = "";
-            String AID="";
-            try {
-                AID = request.getParameter("AID");
-                rst = stmt.executeQuery("SELECT * FROM account WHERE AID='" + AID + "'");
-                if (rst.next()) {
-                    PName = rst.getString(2);
-                    Username = rst.getString(3);
-                    Email = rst.getString(5);
-                    PhoneNo = rst.getString(6);
-                    Address = rst.getString(7);
-                    AccountType = rst.getString(8);
-                    Gender = rst.getString(9);
-                    DOB = rst.getString(10);
+            if (session.getAttribute("SessionUser") != null) {
+                String PName = "";
+                String Username = "";
+                String Email = "";
+                String PhoneNo = "";
+                String Address = "";
+                String AccountType = "";
+                String Gender = "";
+                String DOB = "";
+                String AID = "";
+                try {
+                    AID = request.getParameter("AID");
+                    rst = stmt.executeQuery("SELECT * FROM account WHERE AID='" + AID + "'");
+                    if (rst.next()) {
+                        PName = rst.getString(2);
+                        Username = rst.getString(3);
+                        Email = rst.getString(5);
+                        PhoneNo = rst.getString(6);
+                        Address = rst.getString(7);
+                        AccountType = rst.getString(8);
+                        Gender = rst.getString(9);
+                        DOB = rst.getString(10);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            
-            String Bio="";
-            String Instagram="";
-            String Facebook="";
-            String LinkedIn ="";
-            String City="";
-            String Residence ="";
-            String Experience="";
-            String CompletedProjects="";
-            String reviewedCustomers ="";
-            String Achivements ="";
-            
-             try {
-                rst = stmt.executeQuery("SELECT * FROM profile WHERE AID='" + AID + "'");
-                if (rst.next()) {
-                    Bio = rst.getString(3);
-                    Instagram = rst.getString(4);
-                    Facebook = rst.getString(5);
-                    LinkedIn = rst.getString(6);
-                    City = rst.getString(7);
-                    Residence = rst.getString(8);
-                    Experience = rst.getString(9);
-                    CompletedProjects = rst.getString(10);
-                    reviewedCustomers = rst.getString(11);
-                    Achivements = rst.getString(12);
+
+                String Bio = "";
+                String Instagram = "";
+                String Facebook = "";
+                String LinkedIn = "";
+                String City = "";
+                String Residence = "";
+                String Experience = "";
+                String CompletedProjects = "";
+                String reviewedCustomers = "";
+                String Achivements = "";
+                
+                try {
+                    rst = stmt.executeQuery("SELECT * FROM profile WHERE AID='" + AID + "'");
+                    if (rst.next()) {
+                        Bio = rst.getString(3);
+                        Instagram = rst.getString(4);
+                        Facebook = rst.getString(5);
+                        LinkedIn = rst.getString(6);
+                        City = rst.getString(7);
+                        Residence = rst.getString(8);
+                        Experience = rst.getString(9);
+                        CompletedProjects = rst.getString(10);
+                        reviewedCustomers = rst.getString(11);
+                        Achivements = rst.getString(12);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         %>
         <br />
         <br />
@@ -795,7 +797,7 @@
             <div class="profile-about">
                 <h2><%=PName%> 
                     <% if (AccountType.equals("Verified")) {%><i class="uil uil-comment-verify" style="color: yellow;"></i><%}%> </h2>
-                <p><%=Bio %>
+                <p><%=Bio%>
                 </p>
             </div>
             <%
@@ -810,9 +812,9 @@
             </div>
             <%}%>
             <div class="social-media">
-                <a href="<%=Facebook %>"><i class="fa fa-facebook" id="facebook"></i></a>
-                <a href="<%=Instagram %>"><i class="fa fa-instagram" id="instagram"></i></a>
-                <a href="<%=LinkedIn %>"><i class="fa fa-linkedin" id="linkedin"></i></a>
+                <a href="<%=Facebook%>"><i class="fa fa-facebook" id="facebook"></i></a>
+                <a href="<%=Instagram%>"><i class="fa fa-instagram" id="instagram"></i></a>
+                <a href="<%=LinkedIn%>"><i class="fa fa-linkedin" id="linkedin"></i></a>
             </div>
 
             <div class="profile-details">
@@ -855,23 +857,23 @@
                         <h1>ABOUT ME</h1>
                         <div class="personal-count">
                             <div class="personal-count-item">
-                                <count>+10</count> Years of Experience
+                                <count>+<%=Experience%></count> Years of Experience
                             </div>
                             <div class="personal-count-item">
-                                <count>1200</count> Completed Projects
+                                <count><%=CompletedProjects%></count> Completed Projects
                             </div>
                             <div class="personal-count-item">
-                                <count>810</count> Reviewed Customers
+                                <count><%=reviewedCustomers%></count> Reviewed Customers
                             </div>
                             <div class="personal-count-item">
-                                <count>110</count> Achivements
+                                <count><%=Achivements%></count> Achivements
                             </div>
                         </div>
                         <hr>
                         <div class="personal-details">
-                            <p>Residence: India</p>
-                            <p>Age: 21</p>
-                            <p>City: Bangalore</p>
+                            <p>Residence: <%=Residence%></p>
+                            <p>DOB: <%=DOB %></p>
+                            <p>City: <%=City %></p>
                         </div>
                         <hr>
                         <div class="languages">
@@ -1209,14 +1211,12 @@
         setInterval(refreshDiv, 3000); // Refresh every 5 seconds
     </script>
 
-<%}else{%>
-<script>
-    alert("Please login first.");
-    window.location.href = "Login.jsp";
-</script>
-    <%
-                               
-}%>
+    <%} else {%>
+    <script>
+        alert("Please login first.");
+        window.location.href = "Login.jsp";
+    </script>
+    <%        }%>
 
 </body>
 
