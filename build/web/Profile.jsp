@@ -692,12 +692,12 @@
                 background-color: #555;
             }
 
-            .personal-count{
+            .personal-count {
                 display: flex;
                 margin: 0px 50px;
             }
 
-            .personal-count-item{
+            .personal-count-item {
                 background-color: rgba(0, 0, 0, 0.2);
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
                 width: 300px;
@@ -705,7 +705,8 @@
                 font-size: 26px;
                 text-align: center;
             }
-            .personal-count-item count{
+
+            .personal-count-item count {
                 color: var(--Color-input-border);
             }
 
@@ -724,18 +725,37 @@
 
     <body>
         <%
-            if (session.getAttribute("SessionUser") != null) {
-                String AID = request.getParameter("AID");
-                rst = stmt.executeQuery("SELECT * FROM Account WHERE AID='"+AID+"'");
-                        while(rst.next()){
-                            
-                        
+            String PName = "";
+            String Username = "";
+            String Email = "";
+            String PhoneNo = "";
+            String Address = "";
+            String AccountType = "";
+            String Gender = "";
+            String DOB = "";
+            String AID = "";
+            try {
+                AID = request.getParameter("AID");
+                rst = stmt.executeQuery("SELECT * FROM account WHERE AID='" + AID + "'");
+                if (rst.next()) {
+                    PName = rst.getString(2);
+                    Username = rst.getString(3);
+                    Email = rst.getString(5);
+                    PhoneNo = rst.getString(6);
+                    Address = rst.getString(7);
+                    AccountType = rst.getString(8);
+                    Gender = rst.getString(9);
+                    DOB = rst.getString(10);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         %>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <button onclick="topFunction()" id="gotopBtn" title="Go to top">Top</button>
         <div class="profile-banner">
             <img src="Images/naturebg.jpg" alt="Profile-banner" class="Profile-banner">
@@ -743,17 +763,30 @@
         <img src="view3.jsp?name=<%=AID%>" class="Profile-Img" alt="">
         <div class="profile-rectangle">
             <div class="profile-about">
-                <h2>Goutham <i class="uil uil-comment-verify" style="color: yellow;"></i> </h2> 
-                <p>Sed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin nibh ac rhoncus.
-                    Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac, tincidunt arcu. Vivamus
-                    in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque malesuada, justo ex
-                    sagittis quam, in suscipit nisl libero vitae massa. Donec nec fringilla ex. Praesent a erat vel
+                <h2><%=PName%> 
+                    <% if (AccountType.equals("Verified")) {%><i class="uil uil-comment-verify" style="color: yellow;"></i><%}%> </h2>
+                <p>Sed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin nibh ac
+                    rhoncus.
+                    Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac, tincidunt arcu.
+                    Vivamus
+                    in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque malesuada,
+                    justo ex
+                    sagittis quam, in suscipit nisl libero vitae massa. Donec nec fringilla ex. Praesent a
+                    erat vel
                     quam dignissim facilisis sed nec dolor.
                 </p>
             </div>
+            <%
+                if (AID.equals(session.getAttribute("SessionAID"))) {
+            %>
+            <div class="Profile-Message">
+                <button onclick="window.location.href='Usermanage.jsp'">Edit Profile <i class="fa-solid fa-user-pen"></i></button>
+            </div>
+            <%} else {%>
             <div class="Profile-Message">
                 <button onclick="openChat()">Message <i class="fa-solid fa-message"></i></button>
             </div>
+            <%}%>
             <div class="social-media">
                 <i class="fa fa-facebook" id="facebook"></i>
                 <i class="fa fa-instagram" id="instagram"></i>
@@ -764,31 +797,32 @@
                 <div class="pitems">
                     <div class="profile-email">
                         <h4 class="Email">Email</h4>
-                        <p class="Email-para">Goutham@gmail.com</p>
+                        <p class="Email-para"><%=Email%></p>
                     </div>
                     <div class="profile-phoneno">
                         <h4 class="phoneno">Phone Number</h4>
-                        <p class="phoneno-para">(+91) 9380519585</p>
+                        <p class="phoneno-para">(+91) <%=PhoneNo%></p>
                     </div>
                     <div class="profile-dob">
                         <h4 class="DOB">Date of Birth</h4>
-                        <p class="DOB-para">05-05-2002</p>
+                        <p class="DOB-para"><%=DOB%></p>
                     </div>
                     <div class="profile-location">
                         <h4 class="location">Location</h4>
-                        <p class="location-para">Bangalore, Karnataka, India - 560021</p>
+                        <p class="location-para"><%=Address%></p>
                     </div>
                 </div>
             </div>
         </div>
-<%}%>
+
     <main>
         <div class="main-container">
             <div class="left-box">
                 <div class="left-container">
                     <button class="left-btn" onclick="openPage(event, 'AboutMe')">About Me</button>
                     <button class="left-btn" onclick="openPage(event, 'Achievements')">Achivements</button>
-                    <button class="left-btn" onclick="openPage(event, 'ProjectShowCase')">Project ShowCase</button>
+                    <button class="left-btn" onclick="openPage(event, 'ProjectShowCase')">Project
+                        ShowCase</button>
                     <button class="left-btn" onclick="openPage(event, 'Blog')">Blog</button>
                     <button class="left-btn" onclick="openPage(event, 'ContactUs')">Contact Us</button>
                 </div>
@@ -798,10 +832,18 @@
                     <div id="AboutMe" class="tabcontent">
                         <h1>ABOUT ME</h1>
                         <div class="personal-count">
-                            <div class="personal-count-item"><count>+10</count> Years of Experience</div>
-                            <div class="personal-count-item"><count>1200</count> Completed Projects</div>
-                            <div class="personal-count-item"><count>810</count> Reviewed Customers</div>
-                            <div class="personal-count-item"><count>110</count> Achivements</div>
+                            <div class="personal-count-item">
+                                <count>+10</count> Years of Experience
+                            </div>
+                            <div class="personal-count-item">
+                                <count>1200</count> Completed Projects
+                            </div>
+                            <div class="personal-count-item">
+                                <count>810</count> Reviewed Customers
+                            </div>
+                            <div class="personal-count-item">
+                                <count>110</count> Achivements
+                            </div>
                         </div>
                         <hr>
                         <div class="personal-details">
@@ -867,7 +909,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>  
+                        </div>
 
                         <div class="services">
                             <button>Download CV <i class="fa fa-download"></i></button>
@@ -888,10 +930,14 @@
                     <div id="ContactUs" class="tabcontent">
                         <h1>CONTACT US</h1>
                         <div class="contactdiv">
-                            <label for="Name">Name <input type="text" name="Name" placeholder="Enter the Name" required></label>
-                            <label for="Email">Email <input type="email" name="Email" placeholder="Enter the Email" required></label>
-                            <label for="Phone Number">Phone Number<input type="Text" name="PhoneNo" placeholder="Enter the Phone Number" required></label>
-                            <label for="Message">Message <input type="text" name="Message" placeholder="Enter the Message" required></label>
+                            <label for="Name">Name <input type="text" name="Name" placeholder="Enter the Name"
+                                                          required></label>
+                            <label for="Email">Email <input type="email" name="Email" placeholder="Enter the Email"
+                                                            required></label>
+                            <label for="Phone Number">Phone Number<input type="Text" name="PhoneNo"
+                                                                         placeholder="Enter the Phone Number" required></label>
+                            <label for="Message">Message <input type="text" name="Message"
+                                                                placeholder="Enter the Message" required></label>
                             <input type="submit" class="contact-submitBtn" value="Submit">
                         </div>
                     </div>
@@ -904,13 +950,16 @@
                                     <div class="Project-Title">
                                         Hi
                                         <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin
+                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
+                                            sollicitudin
                                             nibh ac
                                             rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,
+                                            Integer vel suscipit purus. Quisque a elit interdum, varius
+                                            tellus ac,
                                             tincidunt arcu.
                                             Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque
+                                            in nulla in dolor aliquet tristique. Maecenas posuere,
+                                            libero ac scelerisque
                                             malesuada,
                                             justo ex
                                         </div>
@@ -919,13 +968,16 @@
                                     <div class="Project-Title">
                                         Hi
                                         <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin
+                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
+                                            sollicitudin
                                             nibh ac
                                             rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,
+                                            Integer vel suscipit purus. Quisque a elit interdum, varius
+                                            tellus ac,
                                             tincidunt arcu.
                                             Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque
+                                            in nulla in dolor aliquet tristique. Maecenas posuere,
+                                            libero ac scelerisque
                                             malesuada,
                                             justo ex
                                         </div>
@@ -934,13 +986,16 @@
                                     <div class="Project-Title">
                                         Hi
                                         <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin
+                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
+                                            sollicitudin
                                             nibh ac
                                             rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,
+                                            Integer vel suscipit purus. Quisque a elit interdum, varius
+                                            tellus ac,
                                             tincidunt arcu.
                                             Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque
+                                            in nulla in dolor aliquet tristique. Maecenas posuere,
+                                            libero ac scelerisque
                                             malesuada,
                                             justo ex
                                         </div>
@@ -949,13 +1004,16 @@
                                     <div class="Project-Title">
                                         Hi
                                         <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin
+                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
+                                            sollicitudin
                                             nibh ac
                                             rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,
+                                            Integer vel suscipit purus. Quisque a elit interdum, varius
+                                            tellus ac,
                                             tincidunt arcu.
                                             Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque
+                                            in nulla in dolor aliquet tristique. Maecenas posuere,
+                                            libero ac scelerisque
                                             malesuada,
                                             justo ex
                                         </div>
@@ -964,13 +1022,16 @@
                                     <div class="Project-Title">
                                         Hi
                                         <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin
+                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
+                                            sollicitudin
                                             nibh ac
                                             rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,
+                                            Integer vel suscipit purus. Quisque a elit interdum, varius
+                                            tellus ac,
                                             tincidunt arcu.
                                             Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque
+                                            in nulla in dolor aliquet tristique. Maecenas posuere,
+                                            libero ac scelerisque
                                             malesuada,
                                             justo ex
                                         </div>
@@ -985,14 +1046,19 @@
 
                             <img class="bprofile-pic" src="Images/confused.png" alt="John Doe's Profile Picture">
                             <h2>My First Blog Post</h2>
-                            <p>Published on <time datetime="2023-05-01">May 1, 2023</time> by John Doe</p>
+                            <p>Published on <time datetime="2023-05-01">May 1, 2023</time> by John Doe
+                            </p>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis diam vel arcu
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
+                                diam vel arcu
                                 posuere, non
-                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa hendrerit, eget
+                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa
+                                hendrerit, eget
                                 venenatis
-                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis eget magna aliquet,
-                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor dignissim vitae in
+                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis
+                                eget magna aliquet,
+                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor
+                                dignissim vitae in
                                 quam.
                                 Phasellus vehicula nisi id quam ultrices, id luctus dui tincidunt.</p>
                             <hr>
@@ -1001,13 +1067,18 @@
 
                             <img class="bprofile-pic" src="Images/confused.png" alt="John Doe's Profile Picture">
                             <h2>My First Blog Post</h2>
-                            <p>Published on <time datetime="2023-05-01">May 1, 2023</time> by John Doe</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis diam vel arcu
+                            <p>Published on <time datetime="2023-05-01">May 1, 2023</time> by John Doe
+                            </p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
+                                diam vel arcu
                                 posuere, non
-                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa hendrerit, eget
+                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa
+                                hendrerit, eget
                                 venenatis
-                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis eget magna aliquet,
-                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor dignissim vitae in
+                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis
+                                eget magna aliquet,
+                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor
+                                dignissim vitae in
                                 quam.
                                 Phasellus vehicula nisi id quam ultrices, id luctus dui tincidunt.</p>
                             <hr>
@@ -1016,14 +1087,19 @@
 
                             <img class="bprofile-pic" src="Images/confused.png" alt="John Doe's Profile Picture">
                             <h2>My First Blog Post</h2>
-                            <p>Published on <time datetime="2023-05-01">May 1, 2023</time> by John Doe</p>
+                            <p>Published on <time datetime="2023-05-01">May 1, 2023</time> by John Doe
+                            </p>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis diam vel arcu
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
+                                diam vel arcu
                                 posuere, non
-                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa hendrerit, eget
+                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa
+                                hendrerit, eget
                                 venenatis
-                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis eget magna aliquet,
-                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor dignissim vitae in
+                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis
+                                eget magna aliquet,
+                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor
+                                dignissim vitae in
                                 quam.
                                 Phasellus vehicula nisi id quam ultrices, id luctus dui tincidunt.</p>
                             <hr>
@@ -1039,30 +1115,7 @@
                 <button onclick="closeChat()">End chat</button>
             </div>
             <div id="messages">
-                <%
-                    rst = stmt.executeQuery("SELECT * FROM message WHERE (sender='1' and receiver='2') or (sender='2' and receiver='1') order by date");
-                    while (rst.next()) {
-                        if (rst.getString(1).equals("1")) {
-                %>
 
-                <div class="red-text">
-                    <%= rst.getString(3)%>
-                </div>
-                <%
-                } else {
-                %>
-
-                <div class="greenyellow-text">
-                    <%= rst.getString(3)%>
-                </div>
-                <%
-
-                    }%>
-                <br><br><br><br><br><br>
-                <%
-                    }
-
-                %>
             </div>
             <form id="chat-form" action="">
                 <input type="text" id="chat-input" placeholder="Type your message here">
@@ -1072,8 +1125,8 @@
     </main>
     <script>
         document.getElementById("AboutMe").style.display = "block";
-        
-            
+
+
         function openPage(evt, PageName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
@@ -1107,10 +1160,10 @@
             document.documentElement.scrollTop = 0;
         }
 
-       
- 
 
-  
+
+
+
 
         function openChat() {
             document.getElementById("chatPopup").style.display = "block";
@@ -1122,40 +1175,19 @@
             document.getElementById("chatPopup").style.display = "none";
         }
 
-        
+
         function refreshDiv() {
             var divToRefresh = document.getElementById("messages");
             divToRefresh.innerHTML = ""; // Clear the content of the div
-            var newContent = '<%
-                 rst = stmt.executeQuery("SELECT * FROM message WHERE (sender='1' and reciever='2') or (sender='2' and reciever='1') order by date");
-                 while (rst.next()) {
-                     if (rst.getString(1).equals("1")) {
-        %><div class="red-text"><%= rst.getString(3)%></div><%
-        } else {
-        %><div class="greenyellow-text"><%= rst.getString(3)%></div><%
-            }
-        %><br><br><br><br><br><br><%
-                }
-        %>';
-                divToRefresh.innerHTML = newContent;
-                 
-            }
+            var newContent = '<';
+            divToRefresh.innerHTML = newContent;
 
-            setInterval(refreshDiv, 3000); // Refresh every 5 seconds
+        }
+
+        setInterval(refreshDiv, 3000); // Refresh every 5 seconds
     </script>
 
 
-</script>
-<%@include file="footer.jsp" %>
-<%
-} else {
-%>
-<script>
-    alert("Please Login First!");
-    window.location.replace("Login.jsp");
-</script>
-<%        }
-%>
 </body>
 
 </html>

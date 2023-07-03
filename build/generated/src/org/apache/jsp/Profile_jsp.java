@@ -13,10 +13,9 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
   private static java.util.List<String> _jspx_dependants;
 
   static {
-    _jspx_dependants = new java.util.ArrayList<String>(3);
+    _jspx_dependants = new java.util.ArrayList<String>(2);
     _jspx_dependants.add("/header.jsp");
     _jspx_dependants.add("/Secure/Config.jsp");
-    _jspx_dependants.add("/footer.jsp");
   }
 
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
@@ -1052,12 +1051,12 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                background-color: #555;\n");
       out.write("            }\n");
       out.write("\n");
-      out.write("            .personal-count{\n");
+      out.write("            .personal-count {\n");
       out.write("                display: flex;\n");
       out.write("                margin: 0px 50px;\n");
       out.write("            }\n");
       out.write("\n");
-      out.write("            .personal-count-item{\n");
+      out.write("            .personal-count-item {\n");
       out.write("                background-color: rgba(0, 0, 0, 0.2);\n");
       out.write("                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);\n");
       out.write("                width: 300px;\n");
@@ -1065,7 +1064,8 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                font-size: 26px;\n");
       out.write("                text-align: center;\n");
       out.write("            }\n");
-      out.write("            .personal-count-item count{\n");
+      out.write("\n");
+      out.write("            .personal-count-item count {\n");
       out.write("                color: var(--Color-input-border);\n");
       out.write("            }\n");
       out.write("\n");
@@ -1085,19 +1085,38 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <body>\n");
       out.write("        ");
 
-            if (session.getAttribute("SessionUser") != null) {
-                String AID = request.getParameter("AID");
-                rst = stmt.executeQuery("SELECT * FROM Account WHERE AID='"+AID+"'");
-                        while(rst.next()){
-                            
-                        
+            String PName = "";
+            String Username = "";
+            String Email = "";
+            String PhoneNo = "";
+            String Address = "";
+            String AccountType = "";
+            String Gender = "";
+            String DOB = "";
+            String AID = "";
+            try {
+                AID = request.getParameter("AID");
+                rst = stmt.executeQuery("SELECT * FROM account WHERE AID='" + AID + "'");
+                if (rst.next()) {
+                    PName = rst.getString(2);
+                    Username = rst.getString(3);
+                    Email = rst.getString(5);
+                    PhoneNo = rst.getString(6);
+                    Address = rst.getString(7);
+                    AccountType = rst.getString(8);
+                    Gender = rst.getString(9);
+                    DOB = rst.getString(10);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         
       out.write("\n");
-      out.write("        <br/>\n");
-      out.write("        <br/>\n");
-      out.write("        <br/>\n");
-      out.write("        <br/>\n");
-      out.write("        <br/>\n");
+      out.write("        <br />\n");
+      out.write("        <br />\n");
+      out.write("        <br />\n");
+      out.write("        <br />\n");
+      out.write("        <br />\n");
       out.write("        <button onclick=\"topFunction()\" id=\"gotopBtn\" title=\"Go to top\">Top</button>\n");
       out.write("        <div class=\"profile-banner\">\n");
       out.write("            <img src=\"Images/naturebg.jpg\" alt=\"Profile-banner\" class=\"Profile-banner\">\n");
@@ -1107,11 +1126,22 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\" class=\"Profile-Img\" alt=\"\">\n");
       out.write("        <div class=\"profile-rectangle\">\n");
       out.write("            <div class=\"profile-about\">\n");
-      out.write("                <h2>Goutham <i class=\"uil uil-comment-verify\" style=\"color: yellow;\"></i> </h2> \n");
-      out.write("                <p>Sed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin nibh ac rhoncus.\n");
-      out.write("                    Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac, tincidunt arcu. Vivamus\n");
-      out.write("                    in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque malesuada, justo ex\n");
-      out.write("                    sagittis quam, in suscipit nisl libero vitae massa. Donec nec fringilla ex. Praesent a erat vel\n");
+      out.write("                <h2>");
+      out.print(PName);
+      out.write(" \n");
+      out.write("                    ");
+ if (AccountType == "Verified") {
+      out.write("<i class=\"uil uil-comment-verify\" style=\"color: yellow;\"></i>");
+}
+      out.write(" </h2>\n");
+      out.write("                <p>Sed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin nibh ac\n");
+      out.write("                    rhoncus.\n");
+      out.write("                    Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac, tincidunt arcu.\n");
+      out.write("                    Vivamus\n");
+      out.write("                    in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque malesuada,\n");
+      out.write("                    justo ex\n");
+      out.write("                    sagittis quam, in suscipit nisl libero vitae massa. Donec nec fringilla ex. Praesent a\n");
+      out.write("                    erat vel\n");
       out.write("                    quam dignissim facilisis sed nec dolor.\n");
       out.write("                </p>\n");
       out.write("            </div>\n");
@@ -1145,7 +1175,6 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                </div>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
-}
       out.write("\n");
       out.write("    <main>\n");
       out.write("        <div class=\"main-container\">\n");
@@ -1153,7 +1182,8 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <div class=\"left-container\">\n");
       out.write("                    <button class=\"left-btn\" onclick=\"openPage(event, 'AboutMe')\">About Me</button>\n");
       out.write("                    <button class=\"left-btn\" onclick=\"openPage(event, 'Achievements')\">Achivements</button>\n");
-      out.write("                    <button class=\"left-btn\" onclick=\"openPage(event, 'ProjectShowCase')\">Project ShowCase</button>\n");
+      out.write("                    <button class=\"left-btn\" onclick=\"openPage(event, 'ProjectShowCase')\">Project\n");
+      out.write("                        ShowCase</button>\n");
       out.write("                    <button class=\"left-btn\" onclick=\"openPage(event, 'Blog')\">Blog</button>\n");
       out.write("                    <button class=\"left-btn\" onclick=\"openPage(event, 'ContactUs')\">Contact Us</button>\n");
       out.write("                </div>\n");
@@ -1163,10 +1193,18 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <div id=\"AboutMe\" class=\"tabcontent\">\n");
       out.write("                        <h1>ABOUT ME</h1>\n");
       out.write("                        <div class=\"personal-count\">\n");
-      out.write("                            <div class=\"personal-count-item\"><count>+10</count> Years of Experience</div>\n");
-      out.write("                            <div class=\"personal-count-item\"><count>1200</count> Completed Projects</div>\n");
-      out.write("                            <div class=\"personal-count-item\"><count>810</count> Reviewed Customers</div>\n");
-      out.write("                            <div class=\"personal-count-item\"><count>110</count> Achivements</div>\n");
+      out.write("                            <div class=\"personal-count-item\">\n");
+      out.write("                                <count>+10</count> Years of Experience\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"personal-count-item\">\n");
+      out.write("                                <count>1200</count> Completed Projects\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"personal-count-item\">\n");
+      out.write("                                <count>810</count> Reviewed Customers\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"personal-count-item\">\n");
+      out.write("                                <count>110</count> Achivements\n");
+      out.write("                            </div>\n");
       out.write("                        </div>\n");
       out.write("                        <hr>\n");
       out.write("                        <div class=\"personal-details\">\n");
@@ -1232,7 +1270,7 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    </div>\n");
       out.write("                                </li>\n");
       out.write("                            </ul>\n");
-      out.write("                        </div>  \n");
+      out.write("                        </div>\n");
       out.write("\n");
       out.write("                        <div class=\"services\">\n");
       out.write("                            <button>Download CV <i class=\"fa fa-download\"></i></button>\n");
@@ -1253,10 +1291,14 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <div id=\"ContactUs\" class=\"tabcontent\">\n");
       out.write("                        <h1>CONTACT US</h1>\n");
       out.write("                        <div class=\"contactdiv\">\n");
-      out.write("                            <label for=\"Name\">Name <input type=\"text\" name=\"Name\" placeholder=\"Enter the Name\" required></label>\n");
-      out.write("                            <label for=\"Email\">Email <input type=\"email\" name=\"Email\" placeholder=\"Enter the Email\" required></label>\n");
-      out.write("                            <label for=\"Phone Number\">Phone Number<input type=\"Text\" name=\"PhoneNo\" placeholder=\"Enter the Phone Number\" required></label>\n");
-      out.write("                            <label for=\"Message\">Message <input type=\"text\" name=\"Message\" placeholder=\"Enter the Message\" required></label>\n");
+      out.write("                            <label for=\"Name\">Name <input type=\"text\" name=\"Name\" placeholder=\"Enter the Name\"\n");
+      out.write("                                                          required></label>\n");
+      out.write("                            <label for=\"Email\">Email <input type=\"email\" name=\"Email\" placeholder=\"Enter the Email\"\n");
+      out.write("                                                            required></label>\n");
+      out.write("                            <label for=\"Phone Number\">Phone Number<input type=\"Text\" name=\"PhoneNo\"\n");
+      out.write("                                                                         placeholder=\"Enter the Phone Number\" required></label>\n");
+      out.write("                            <label for=\"Message\">Message <input type=\"text\" name=\"Message\"\n");
+      out.write("                                                                placeholder=\"Enter the Message\" required></label>\n");
       out.write("                            <input type=\"submit\" class=\"contact-submitBtn\" value=\"Submit\">\n");
       out.write("                        </div>\n");
       out.write("                    </div>\n");
@@ -1269,13 +1311,16 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    <div class=\"Project-Title\">\n");
       out.write("                                        Hi\n");
       out.write("                                        <div class=\"Project-Discription\">\n");
-      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin\n");
+      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt\n");
+      out.write("                                            sollicitudin\n");
       out.write("                                            nibh ac\n");
       out.write("                                            rhoncus.\n");
-      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,\n");
+      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius\n");
+      out.write("                                            tellus ac,\n");
       out.write("                                            tincidunt arcu.\n");
       out.write("                                            Vivamus\n");
-      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque\n");
+      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere,\n");
+      out.write("                                            libero ac scelerisque\n");
       out.write("                                            malesuada,\n");
       out.write("                                            justo ex\n");
       out.write("                                        </div>\n");
@@ -1284,13 +1329,16 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    <div class=\"Project-Title\">\n");
       out.write("                                        Hi\n");
       out.write("                                        <div class=\"Project-Discription\">\n");
-      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin\n");
+      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt\n");
+      out.write("                                            sollicitudin\n");
       out.write("                                            nibh ac\n");
       out.write("                                            rhoncus.\n");
-      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,\n");
+      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius\n");
+      out.write("                                            tellus ac,\n");
       out.write("                                            tincidunt arcu.\n");
       out.write("                                            Vivamus\n");
-      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque\n");
+      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere,\n");
+      out.write("                                            libero ac scelerisque\n");
       out.write("                                            malesuada,\n");
       out.write("                                            justo ex\n");
       out.write("                                        </div>\n");
@@ -1299,13 +1347,16 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    <div class=\"Project-Title\">\n");
       out.write("                                        Hi\n");
       out.write("                                        <div class=\"Project-Discription\">\n");
-      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin\n");
+      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt\n");
+      out.write("                                            sollicitudin\n");
       out.write("                                            nibh ac\n");
       out.write("                                            rhoncus.\n");
-      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,\n");
+      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius\n");
+      out.write("                                            tellus ac,\n");
       out.write("                                            tincidunt arcu.\n");
       out.write("                                            Vivamus\n");
-      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque\n");
+      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere,\n");
+      out.write("                                            libero ac scelerisque\n");
       out.write("                                            malesuada,\n");
       out.write("                                            justo ex\n");
       out.write("                                        </div>\n");
@@ -1314,13 +1365,16 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    <div class=\"Project-Title\">\n");
       out.write("                                        Hi\n");
       out.write("                                        <div class=\"Project-Discription\">\n");
-      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin\n");
+      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt\n");
+      out.write("                                            sollicitudin\n");
       out.write("                                            nibh ac\n");
       out.write("                                            rhoncus.\n");
-      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,\n");
+      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius\n");
+      out.write("                                            tellus ac,\n");
       out.write("                                            tincidunt arcu.\n");
       out.write("                                            Vivamus\n");
-      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque\n");
+      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere,\n");
+      out.write("                                            libero ac scelerisque\n");
       out.write("                                            malesuada,\n");
       out.write("                                            justo ex\n");
       out.write("                                        </div>\n");
@@ -1329,13 +1383,16 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    <div class=\"Project-Title\">\n");
       out.write("                                        Hi\n");
       out.write("                                        <div class=\"Project-Discription\">\n");
-      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt sollicitudin\n");
+      out.write("                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt\n");
+      out.write("                                            sollicitudin\n");
       out.write("                                            nibh ac\n");
       out.write("                                            rhoncus.\n");
-      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius tellus ac,\n");
+      out.write("                                            Integer vel suscipit purus. Quisque a elit interdum, varius\n");
+      out.write("                                            tellus ac,\n");
       out.write("                                            tincidunt arcu.\n");
       out.write("                                            Vivamus\n");
-      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere, libero ac scelerisque\n");
+      out.write("                                            in nulla in dolor aliquet tristique. Maecenas posuere,\n");
+      out.write("                                            libero ac scelerisque\n");
       out.write("                                            malesuada,\n");
       out.write("                                            justo ex\n");
       out.write("                                        </div>\n");
@@ -1350,14 +1407,19 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                            <img class=\"bprofile-pic\" src=\"Images/confused.png\" alt=\"John Doe's Profile Picture\">\n");
       out.write("                            <h2>My First Blog Post</h2>\n");
-      out.write("                            <p>Published on <time datetime=\"2023-05-01\">May 1, 2023</time> by John Doe</p>\n");
+      out.write("                            <p>Published on <time datetime=\"2023-05-01\">May 1, 2023</time> by John Doe\n");
+      out.write("                            </p>\n");
       out.write("\n");
-      out.write("                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis diam vel arcu\n");
+      out.write("                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis\n");
+      out.write("                                diam vel arcu\n");
       out.write("                                posuere, non\n");
-      out.write("                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa hendrerit, eget\n");
+      out.write("                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa\n");
+      out.write("                                hendrerit, eget\n");
       out.write("                                venenatis\n");
-      out.write("                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis eget magna aliquet,\n");
-      out.write("                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor dignissim vitae in\n");
+      out.write("                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis\n");
+      out.write("                                eget magna aliquet,\n");
+      out.write("                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor\n");
+      out.write("                                dignissim vitae in\n");
       out.write("                                quam.\n");
       out.write("                                Phasellus vehicula nisi id quam ultrices, id luctus dui tincidunt.</p>\n");
       out.write("                            <hr>\n");
@@ -1366,13 +1428,18 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                            <img class=\"bprofile-pic\" src=\"Images/confused.png\" alt=\"John Doe's Profile Picture\">\n");
       out.write("                            <h2>My First Blog Post</h2>\n");
-      out.write("                            <p>Published on <time datetime=\"2023-05-01\">May 1, 2023</time> by John Doe</p>\n");
-      out.write("                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis diam vel arcu\n");
+      out.write("                            <p>Published on <time datetime=\"2023-05-01\">May 1, 2023</time> by John Doe\n");
+      out.write("                            </p>\n");
+      out.write("                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis\n");
+      out.write("                                diam vel arcu\n");
       out.write("                                posuere, non\n");
-      out.write("                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa hendrerit, eget\n");
+      out.write("                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa\n");
+      out.write("                                hendrerit, eget\n");
       out.write("                                venenatis\n");
-      out.write("                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis eget magna aliquet,\n");
-      out.write("                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor dignissim vitae in\n");
+      out.write("                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis\n");
+      out.write("                                eget magna aliquet,\n");
+      out.write("                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor\n");
+      out.write("                                dignissim vitae in\n");
       out.write("                                quam.\n");
       out.write("                                Phasellus vehicula nisi id quam ultrices, id luctus dui tincidunt.</p>\n");
       out.write("                            <hr>\n");
@@ -1381,14 +1448,19 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                            <img class=\"bprofile-pic\" src=\"Images/confused.png\" alt=\"John Doe's Profile Picture\">\n");
       out.write("                            <h2>My First Blog Post</h2>\n");
-      out.write("                            <p>Published on <time datetime=\"2023-05-01\">May 1, 2023</time> by John Doe</p>\n");
+      out.write("                            <p>Published on <time datetime=\"2023-05-01\">May 1, 2023</time> by John Doe\n");
+      out.write("                            </p>\n");
       out.write("\n");
-      out.write("                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis diam vel arcu\n");
+      out.write("                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis\n");
+      out.write("                                diam vel arcu\n");
       out.write("                                posuere, non\n");
-      out.write("                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa hendrerit, eget\n");
+      out.write("                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa\n");
+      out.write("                                hendrerit, eget\n");
       out.write("                                venenatis\n");
-      out.write("                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis eget magna aliquet,\n");
-      out.write("                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor dignissim vitae in\n");
+      out.write("                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis\n");
+      out.write("                                eget magna aliquet,\n");
+      out.write("                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor\n");
+      out.write("                                dignissim vitae in\n");
       out.write("                                quam.\n");
       out.write("                                Phasellus vehicula nisi id quam ultrices, id luctus dui tincidunt.</p>\n");
       out.write("                            <hr>\n");
@@ -1404,41 +1476,6 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <button onclick=\"closeChat()\">End chat</button>\n");
       out.write("            </div>\n");
       out.write("            <div id=\"messages\">\n");
-      out.write("                ");
-
-                    rst = stmt.executeQuery("SELECT * FROM message WHERE (sender='1' and receiver='2') or (sender='2' and receiver='1') order by date");
-                    while (rst.next()) {
-                        if (rst.getString(1).equals("1")) {
-                
-      out.write("\n");
-      out.write("\n");
-      out.write("                <div class=\"red-text\">\n");
-      out.write("                    ");
-      out.print( rst.getString(3));
-      out.write("\n");
-      out.write("                </div>\n");
-      out.write("                ");
-
-                } else {
-                
-      out.write("\n");
-      out.write("\n");
-      out.write("                <div class=\"greenyellow-text\">\n");
-      out.write("                    ");
-      out.print( rst.getString(3));
-      out.write("\n");
-      out.write("                </div>\n");
-      out.write("                ");
-
-
-                    }
-      out.write("\n");
-      out.write("                <br><br><br><br><br><br>\n");
-      out.write("                ");
-
-                    }
-
-                
       out.write("\n");
       out.write("            </div>\n");
       out.write("            <form id=\"chat-form\" action=\"\">\n");
@@ -1449,8 +1486,8 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </main>\n");
       out.write("    <script>\n");
       out.write("        document.getElementById(\"AboutMe\").style.display = \"block\";\n");
-      out.write("        \n");
-      out.write("            \n");
+      out.write("\n");
+      out.write("\n");
       out.write("        function openPage(evt, PageName) {\n");
       out.write("            var i, tabcontent, tablinks;\n");
       out.write("            tabcontent = document.getElementsByClassName(\"tabcontent\");\n");
@@ -1484,10 +1521,10 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            document.documentElement.scrollTop = 0;\n");
       out.write("        }\n");
       out.write("\n");
-      out.write("       \n");
-      out.write(" \n");
       out.write("\n");
-      out.write("  \n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("\n");
       out.write("        function openChat() {\n");
       out.write("            document.getElementById(\"chatPopup\").style.display = \"block\";\n");
@@ -1499,58 +1536,18 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            document.getElementById(\"chatPopup\").style.display = \"none\";\n");
       out.write("        }\n");
       out.write("\n");
-      out.write("        \n");
+      out.write("\n");
       out.write("        function refreshDiv() {\n");
       out.write("            var divToRefresh = document.getElementById(\"messages\");\n");
       out.write("            divToRefresh.innerHTML = \"\"; // Clear the content of the div\n");
-      out.write("            var newContent = '");
-
-                 rst = stmt.executeQuery("SELECT * FROM message WHERE (sender='1' and reciever='2') or (sender='2' and reciever='1') order by date");
-                 while (rst.next()) {
-                     if (rst.getString(1).equals("1")) {
-        
-      out.write("<div class=\"red-text\">");
-      out.print( rst.getString(3));
-      out.write("</div>");
-
-        } else {
-        
-      out.write("<div class=\"greenyellow-text\">");
-      out.print( rst.getString(3));
-      out.write("</div>");
-
-            }
-        
-      out.write("<br><br><br><br><br><br>");
-
-                }
-        
-      out.write("';\n");
-      out.write("                divToRefresh.innerHTML = newContent;\n");
-      out.write("                 \n");
-      out.write("            }\n");
+      out.write("            var newContent = '<';\n");
+      out.write("            divToRefresh.innerHTML = newContent;\n");
       out.write("\n");
-      out.write("            setInterval(refreshDiv, 3000); // Refresh every 5 seconds\n");
+      out.write("        }\n");
+      out.write("\n");
+      out.write("        setInterval(refreshDiv, 3000); // Refresh every 5 seconds\n");
       out.write("    </script>\n");
       out.write("\n");
-      out.write("\n");
-      out.write("</script>\n");
-      out.write("\n");
-      out.write("<footer style=\"background-color: #f2f2f2; padding: 20px; text-align: center;\">\n");
-      out.write("    <p style=\"font-size: 14px; color: #888;\">&copy; 2023 Web Wizdary. Created by Goutham.</p>\n");
-      out.write("  </footer>\n");
-      out.write("  ");
-      out.write('\n');
-
-} else {
-
-      out.write("\n");
-      out.write("<script>\n");
-      out.write("    alert(\"Please Login First!\");\n");
-      out.write("    window.location.replace(\"Login.jsp\");\n");
-      out.write("</script>\n");
-        }
-
       out.write("\n");
       out.write("</body>\n");
       out.write("\n");
