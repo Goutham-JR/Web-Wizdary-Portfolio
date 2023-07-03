@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.sql.*;
 
 public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -12,8 +13,9 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
   private static java.util.List<String> _jspx_dependants;
 
   static {
-    _jspx_dependants = new java.util.ArrayList<String>(2);
+    _jspx_dependants = new java.util.ArrayList<String>(3);
     _jspx_dependants.add("/header.jsp");
+    _jspx_dependants.add("/Secure/Config.jsp");
     _jspx_dependants.add("/footer.jsp");
   }
 
@@ -80,7 +82,7 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                height: 40px;\n");
       out.write("                width: 1570px;\n");
       out.write("                position: fixed;\n");
-      out.write("                box-shadow: 1px 1px 1px 1px rgb(255,2550,255,0.5);\n");
+      out.write("                box-shadow: 1px 1px 1px 1px rgb(255,2550,255,0.2);\n");
       out.write("                background-color: var(--Color-Background-Color);\n");
       out.write("                margin: 10px 40px;\n");
       out.write("                z-index: 9999;\n");
@@ -255,7 +257,7 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                bottom: 15px;\n");
       out.write("                background-color: white;\n");
       out.write("            }\n");
-      out.write("            \n");
+      out.write("\n");
       out.write("            .Headerbtn:hover{\n");
       out.write("                background-color: var(--Color-Btn);\n");
       out.write("            }\n");
@@ -283,7 +285,7 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    </li>\n");
       out.write("                    <li><a href=\"index.jsp\"><i class=\"fa-solid fa-house\"></i> Home</a></li>\n");
       out.write("                    <li><a href=\"Profile.jsp?AID=");
-      out.print( session.getAttribute("SessionAID") );
+      out.print( session.getAttribute("SessionAID"));
       out.write("\"><i class=\"fa-solid fa-user\"></i> Profile</a></li>\n");
       out.write("                    <li><a href=\"Message.jsp\"><i class=\"fa-solid fa-message\"></i> Message</a></li>\n");
       out.write("                    <li><a href=\"Blog.jsp\"><i class=\"fa-solid fa-blog\"></i> Blog</a></li>\n");
@@ -310,38 +312,54 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    </li>\n");
       out.write("                    <li class=\"dropdown\">\n");
       out.write("                        <h4 class=\"sessionuser\">");
-      out.print( session.getAttribute("SessionUser") );
+      out.print( session.getAttribute("SessionUser"));
       out.write(" <i class=\"uil uil-comment-verify\" style=\"color: yellow;\"></i></h4>\n");
       out.write("                    </li>\n");
       out.write("                    ");
 } else {
                     
       out.write("\n");
-      out.write("                    <li><button class=\"Headerbtn\"  id=\"signupbtn\">SignUp</button></li>\n");
-      out.write("                    <li><button class=\"Headerbtn\"  id=\"loginbtn\">Login</button></li>\n");
-      out.write("                    ");
-                        }
+      out.write("                    <li><form action=\"SignUp.jsp\">\n");
+      out.write("                            <button class=\"Headerbtn\" type=\"submit\">Sign Up</button>\n");
+      out.write("                        </form>\n");
+      out.write("                    </li>\n");
+      out.write("                    <li><form action=\"Login.jsp\">\n");
+      out.write("                            <button class=\"Headerbtn\" type=\"submit\">Login</button>\n");
+      out.write("                        </form>\n");
+      out.write("                    </li>\n");
+      out.write("                        ");
+ }
       out.write("\n");
       out.write("                </ul>\n");
       out.write("            </nav>\n");
       out.write("        </header>\n");
-      out.write("        <script>\n");
-      out.write("            var signupbtn = document.getElementById(\"signupbtn\");\n");
-      out.write("            var loginbtn = document.getElementById(\"loginbtn\");\n");
-      out.write("                    \n");
-      out.write("            signupbtn.addEventListener(\"click\", function(){\n");
-      out.write("                window.location.replace(\"SignUp.jsp\"); \n");
-      out.write("            });\n");
-      out.write("                    \n");
-      out.write("            loginbtn.addEventListener(\"click\", function(){\n");
-      out.write("                window.location.replace(\"Login.jsp\"); \n");
-      out.write("            });\n");
-      out.write("            \n");
-      out.write("        </script>\n");
+      out.write("        \n");
       out.write("    </body>\n");
       out.write("\n");
       out.write("</html>\n");
       out.write("\n");
+      out.write('\n');
+      out.write('\n');
+      out.write('\n');
+
+    String jdbcDriver = "com.mysql.jdbc.Driver";
+    Class.forName(jdbcDriver).newInstance();
+   
+    Connection con = null;
+    ResultSet rst = null;
+    Statement stmt = null;
+    
+    try {
+        String url = "jdbc:mysql://localhost/portfolio?user=root&password=Duelisto";
+        con = DriverManager.getConnection(url);
+        stmt = con.createStatement();
+    } catch(Exception e) {
+        System.out.println(e.getMessage());
+    }
+    
+    String Title = "Web Wizardry";
+
+      out.write('\n');
       out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html lang=\"en\">\n");
@@ -1050,6 +1068,17 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            .personal-count-item count{\n");
       out.write("                color: var(--Color-input-border);\n");
       out.write("            }\n");
+      out.write("\n");
+      out.write("            .red-text {\n");
+      out.write("                color: red;\n");
+      out.write("                float: right;\n");
+      out.write("            }\n");
+      out.write("\n");
+      out.write("            .greenyellow-text {\n");
+      out.write("                color: greenyellow;\n");
+      out.write("                float: left;\n");
+      out.write("                display: block;\n");
+      out.write("            }\n");
       out.write("        </style>\n");
       out.write("    </head>\n");
       out.write("\n");
@@ -1057,8 +1086,11 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        ");
 
             if (session.getAttribute("SessionUser") != null) {
-                
-            
+                String AID = request.getParameter("AID");
+                rst = stmt.executeQuery("SELECT * FROM Account WHERE AID='"+AID+"'");
+                        while(rst.next()){
+                            
+                        
         
       out.write("\n");
       out.write("        <br/>\n");
@@ -1066,17 +1098,13 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <br/>\n");
       out.write("        <br/>\n");
       out.write("        <br/>\n");
-      out.write("\n");
-      out.write("        ");
-
-            String AID = request.getParameter("AID");
-        
-      out.write("\n");
       out.write("        <button onclick=\"topFunction()\" id=\"gotopBtn\" title=\"Go to top\">Top</button>\n");
       out.write("        <div class=\"profile-banner\">\n");
       out.write("            <img src=\"Images/naturebg.jpg\" alt=\"Profile-banner\" class=\"Profile-banner\">\n");
       out.write("        </div>\n");
-      out.write("        <img src=\"Images/confused.png\" class=\"Profile-Img\" alt=\"\">\n");
+      out.write("        <img src=\"view3.jsp?name=");
+      out.print(AID);
+      out.write("\" class=\"Profile-Img\" alt=\"\">\n");
       out.write("        <div class=\"profile-rectangle\">\n");
       out.write("            <div class=\"profile-about\">\n");
       out.write("                <h2>Goutham <i class=\"uil uil-comment-verify\" style=\"color: yellow;\"></i> </h2> \n");
@@ -1117,6 +1145,7 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                </div>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
+}
       out.write("\n");
       out.write("    <main>\n");
       out.write("        <div class=\"main-container\">\n");
@@ -1368,14 +1397,51 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                </div>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
+      out.write("\n");
       out.write("        <div id=\"chatPopup\">\n");
       out.write("            <div id=\"chatTitle\">\n");
-      out.write("                <h3>{%User%} {Online?}</h3>\n");
+      out.write("                <h3>Name <span style=\"color:greenyellow;\">Online</span></h3>\n");
       out.write("                <button onclick=\"closeChat()\">End chat</button>\n");
       out.write("            </div>\n");
       out.write("            <div id=\"messages\">\n");
+      out.write("                ");
+
+                    rst = stmt.executeQuery("SELECT * FROM message WHERE (sender='1' and receiver='2') or (sender='2' and receiver='1') order by date");
+                    while (rst.next()) {
+                        if (rst.getString(1).equals("1")) {
+                
+      out.write("\n");
+      out.write("\n");
+      out.write("                <div class=\"red-text\">\n");
+      out.write("                    ");
+      out.print( rst.getString(3));
+      out.write("\n");
+      out.write("                </div>\n");
+      out.write("                ");
+
+                } else {
+                
+      out.write("\n");
+      out.write("\n");
+      out.write("                <div class=\"greenyellow-text\">\n");
+      out.write("                    ");
+      out.print( rst.getString(3));
+      out.write("\n");
+      out.write("                </div>\n");
+      out.write("                ");
+
+
+                    }
+      out.write("\n");
+      out.write("                <br><br><br><br><br><br>\n");
+      out.write("                ");
+
+                    }
+
+                
+      out.write("\n");
       out.write("            </div>\n");
-      out.write("            <form id=\"chat-form\">\n");
+      out.write("            <form id=\"chat-form\" action=\"\">\n");
       out.write("                <input type=\"text\" id=\"chat-input\" placeholder=\"Type your message here\">\n");
       out.write("                <button type=\"submit\" id=\"send-button\">Send<i class=\"fa fa-send\"></i></button>\n");
       out.write("            </form>\n");
@@ -1383,7 +1449,8 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </main>\n");
       out.write("    <script>\n");
       out.write("        document.getElementById(\"AboutMe\").style.display = \"block\";\n");
-      out.write("\n");
+      out.write("        \n");
+      out.write("            \n");
       out.write("        function openPage(evt, PageName) {\n");
       out.write("            var i, tabcontent, tablinks;\n");
       out.write("            tabcontent = document.getElementsByClassName(\"tabcontent\");\n");
@@ -1417,78 +1484,73 @@ public final class Profile_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            document.documentElement.scrollTop = 0;\n");
       out.write("        }\n");
       out.write("\n");
+      out.write("       \n");
+      out.write(" \n");
       out.write("\n");
-      out.write("\n");
-      out.write("        //chatbot\n");
-      out.write("\n");
-      out.write("        /* \n");
-      out.write("         * To change this template, choose Tools | Templates\n");
-      out.write("         * and open the template in the editor.\n");
-      out.write("         */\n");
-      out.write("\n");
-      out.write("\n");
+      out.write("  \n");
       out.write("\n");
       out.write("        function openChat() {\n");
       out.write("            document.getElementById(\"chatPopup\").style.display = \"block\";\n");
+      out.write("            var messages = document.getElementById(\"messages\");\n");
+      out.write("            messages.scrollTop = messages.scrollHeight;\n");
       out.write("        }\n");
       out.write("\n");
       out.write("        function closeChat() {\n");
       out.write("            document.getElementById(\"chatPopup\").style.display = \"none\";\n");
       out.write("        }\n");
       out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("        var websocket;\n");
-      out.write("\n");
-      out.write("        function connectWebSocket() {\n");
-      out.write("            var url = \"ws://\" + window.location.host + \"/your-web-app/chat\";\n");
-      out.write("            websocket = new WebSocket(url);\n");
-      out.write("\n");
-      out.write("            websocket.onopen = function() {\n");
-      out.write("                console.log(\"WebSocket connection established.\");\n");
-      out.write("            };\n");
-      out.write("\n");
-      out.write("            websocket.onmessage = function(event) {\n");
-      out.write("                var message = event.data;\n");
-      out.write("                // Process and display the received message\n");
-      out.write("                // You can update the page dynamically here\n");
-      out.write("                console.log(\"Received message: \" + message);\n");
-      out.write("            };\n");
-      out.write("\n");
-      out.write("            websocket.onclose = function() {\n");
-      out.write("                console.log(\"WebSocket connection closed.\");\n");
-      out.write("            };\n");
-      out.write("        }\n");
-      out.write("\n");
-      out.write("        function sendMessage(recipientSessionId, message) {\n");
-      out.write("            var fullMessage = recipientSessionId + \":\" + message;\n");
-      out.write("            websocket.send(fullMessage);\n");
-      out.write("        }\n");
-      out.write("\n");
       out.write("        \n");
+      out.write("        function refreshDiv() {\n");
+      out.write("            var divToRefresh = document.getElementById(\"messages\");\n");
+      out.write("            divToRefresh.innerHTML = \"\"; // Clear the content of the div\n");
+      out.write("            var newContent = '");
+
+                 rst = stmt.executeQuery("SELECT * FROM message WHERE (sender='1' and reciever='2') or (sender='2' and reciever='1') order by date");
+                 while (rst.next()) {
+                     if (rst.getString(1).equals("1")) {
+        
+      out.write("<div class=\"red-text\">");
+      out.print( rst.getString(3));
+      out.write("</div>");
+
+        } else {
+        
+      out.write("<div class=\"greenyellow-text\">");
+      out.print( rst.getString(3));
+      out.write("</div>");
+
+            }
+        
+      out.write("<br><br><br><br><br><br>");
+
+                }
+        
+      out.write("';\n");
+      out.write("                divToRefresh.innerHTML = newContent;\n");
+      out.write("                 \n");
+      out.write("            }\n");
+      out.write("\n");
+      out.write("            setInterval(refreshDiv, 3000); // Refresh every 5 seconds\n");
       out.write("    </script>\n");
-      out.write("    ");
+      out.write("\n");
+      out.write("\n");
+      out.write("</script>\n");
       out.write("\n");
       out.write("<footer style=\"background-color: #f2f2f2; padding: 20px; text-align: center;\">\n");
       out.write("    <p style=\"font-size: 14px; color: #888;\">&copy; 2023 Web Wizdary. Created by Goutham.</p>\n");
       out.write("  </footer>\n");
       out.write("  ");
-      out.write("\n");
-      out.write("    ");
+      out.write('\n');
 
-           }
-                       else{
-                
-      out.write("\n");
-      out.write("                <script>\n");
-      out.write("                    alert(\"Please Login First!\");\n");
-      out.write("                    window.location.replace(\"Login.jsp\");\n");
-      out.write("                </script>\n");
-      out.write("    ");
+} else {
 
-                    
-                       }
-    
+      out.write("\n");
+      out.write("<script>\n");
+      out.write("    alert(\"Please Login First!\");\n");
+      out.write("    window.location.replace(\"Login.jsp\");\n");
+      out.write("</script>\n");
+        }
+
       out.write("\n");
       out.write("</body>\n");
       out.write("\n");

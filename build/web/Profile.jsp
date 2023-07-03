@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp" %>
+<%@include file="Secure/Config.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -707,29 +708,39 @@
             .personal-count-item count{
                 color: var(--Color-input-border);
             }
+
+            .red-text {
+                color: red;
+                float: right;
+            }
+
+            .greenyellow-text {
+                color: greenyellow;
+                float: left;
+                display: block;
+            }
         </style>
     </head>
 
     <body>
         <%
             if (session.getAttribute("SessionUser") != null) {
-                
-            
+                String AID = request.getParameter("AID");
+                rst = stmt.executeQuery("SELECT * FROM Account WHERE AID='"+AID+"'");
+                        while(rst.next()){
+                            
+                        
         %>
         <br/>
         <br/>
         <br/>
         <br/>
         <br/>
-
-        <%
-            String AID = request.getParameter("AID");
-        %>
         <button onclick="topFunction()" id="gotopBtn" title="Go to top">Top</button>
         <div class="profile-banner">
             <img src="Images/naturebg.jpg" alt="Profile-banner" class="Profile-banner">
         </div>
-        <img src="Images/confused.png" class="Profile-Img" alt="">
+        <img src="view3.jsp?name=<%=AID%>" class="Profile-Img" alt="">
         <div class="profile-rectangle">
             <div class="profile-about">
                 <h2>Goutham <i class="uil uil-comment-verify" style="color: yellow;"></i> </h2> 
@@ -770,7 +781,7 @@
                 </div>
             </div>
         </div>
-
+<%}%>
     <main>
         <div class="main-container">
             <div class="left-box">
@@ -1021,14 +1032,39 @@
                 </div>
             </div>
         </div>
+
         <div id="chatPopup">
             <div id="chatTitle">
-                <h3>{%User%} {Online?}</h3>
+                <h3>Name <span style="color:greenyellow;">Online</span></h3>
                 <button onclick="closeChat()">End chat</button>
             </div>
             <div id="messages">
+                <%
+                    rst = stmt.executeQuery("SELECT * FROM message WHERE (sender='1' and receiver='2') or (sender='2' and receiver='1') order by date");
+                    while (rst.next()) {
+                        if (rst.getString(1).equals("1")) {
+                %>
+
+                <div class="red-text">
+                    <%= rst.getString(3)%>
+                </div>
+                <%
+                } else {
+                %>
+
+                <div class="greenyellow-text">
+                    <%= rst.getString(3)%>
+                </div>
+                <%
+
+                    }%>
+                <br><br><br><br><br><br>
+                <%
+                    }
+
+                %>
             </div>
-            <form id="chat-form">
+            <form id="chat-form" action="">
                 <input type="text" id="chat-input" placeholder="Type your message here">
                 <button type="submit" id="send-button">Send<i class="fa fa-send"></i></button>
             </form>
@@ -1036,7 +1072,8 @@
     </main>
     <script>
         document.getElementById("AboutMe").style.display = "block";
-
+        
+            
         function openPage(evt, PageName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
@@ -1070,69 +1107,55 @@
             document.documentElement.scrollTop = 0;
         }
 
+       
+ 
 
-
-        //chatbot
-
-        /* 
-         * To change this template, choose Tools | Templates
-         * and open the template in the editor.
-         */
-
-
+  
 
         function openChat() {
             document.getElementById("chatPopup").style.display = "block";
+            var messages = document.getElementById("messages");
+            messages.scrollTop = messages.scrollHeight;
         }
 
         function closeChat() {
             document.getElementById("chatPopup").style.display = "none";
         }
 
-
-
-        var websocket;
-
-        function connectWebSocket() {
-            var url = "ws://" + window.location.host + "/your-web-app/chat";
-            websocket = new WebSocket(url);
-
-            websocket.onopen = function() {
-                console.log("WebSocket connection established.");
-            };
-
-            websocket.onmessage = function(event) {
-                var message = event.data;
-                // Process and display the received message
-                // You can update the page dynamically here
-                console.log("Received message: " + message);
-            };
-
-            websocket.onclose = function() {
-                console.log("WebSocket connection closed.");
-            };
-        }
-
-        function sendMessage(recipientSessionId, message) {
-            var fullMessage = recipientSessionId + ":" + message;
-            websocket.send(fullMessage);
-        }
-
         
+        function refreshDiv() {
+            var divToRefresh = document.getElementById("messages");
+            divToRefresh.innerHTML = ""; // Clear the content of the div
+            var newContent = '<%
+                 rst = stmt.executeQuery("SELECT * FROM message WHERE (sender='1' and reciever='2') or (sender='2' and reciever='1') order by date");
+                 while (rst.next()) {
+                     if (rst.getString(1).equals("1")) {
+        %><div class="red-text"><%= rst.getString(3)%></div><%
+        } else {
+        %><div class="greenyellow-text"><%= rst.getString(3)%></div><%
+            }
+        %><br><br><br><br><br><br><%
+                }
+        %>';
+                divToRefresh.innerHTML = newContent;
+                 
+            }
+
+            setInterval(refreshDiv, 3000); // Refresh every 5 seconds
     </script>
-    <%@include file="footer.jsp" %>
-    <%
-           }
-                       else{
-                %>
-                <script>
-                    alert("Please Login First!");
-                    window.location.replace("Login.jsp");
-                </script>
-    <%
-                    
-                       }
-    %>
+
+
+</script>
+<%@include file="footer.jsp" %>
+<%
+} else {
+%>
+<script>
+    alert("Please Login First!");
+    window.location.replace("Login.jsp");
+</script>
+<%        }
+%>
 </body>
 
 </html>

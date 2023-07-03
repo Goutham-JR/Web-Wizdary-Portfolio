@@ -18,7 +18,7 @@
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Portfolio", "root", "Duelisto");
         stmt = con.createStatement();
-        rs = stmt.executeQuery("select image from content1 where name = '" + name + "' ");
+        rs = stmt.executeQuery("select PImage from profile where AID = '" + name + "' ");
         if (rs.next()) {
             image = rs.getBlob(1);
             imgData = image.getBytes(1, (int) image.length());

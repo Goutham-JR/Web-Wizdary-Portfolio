@@ -315,16 +315,8 @@
     </head>
 
     <body>
-        <%if (request.getMethod().equalsIgnoreCase("POST")) {
-                
 
-                rst = stmt.executeQuery("Insert into Content values( ? )");
-                if(rst.next()) {
-                    
-                }
-                                       
-            }
-        %>
+       
         <div class="main-menu">
             <div class="menu">
                 <ul>
@@ -352,27 +344,61 @@
                         </ul>
                     </li>
                 </ul>
-            </div>
+            
             <div class="form-container">
                 <div id="Profile" class="tabcontent">
-                      <form action="Recommends" enctype="multipart/form-data" method="post"> 
+                    </div>
+             <%
+        
+            rst = stmt.executeQuery("SELECT * FROM profile WHERE AID='"+session.getAttribute("SessionAID") +"'");
+            String AID = session.getAttribute("SessionAID").toString();
+            if (rst.next()) {
+
+        %>
+                    <form action="Recommends" enctype="multipart/form-data" method="post"> 
                         <h2>Profile Information</h2>
-                        <img src="Images/confused.png" width="150px" height="150px"
-                             style="position: relative;left: 60px; border-radius: 50%;background-color: rebeccapurple;">
+                        <img src="view3.jsp?name=<%=AID%>" width="150px" height="150px"
+                             style="position: relative;left: 60px; border-radius: 50%;background-color: rebeccapurple;"/>
+
+                        <label for="User" style="padding-left: 100px;">Goutham</label>
+                        <label for="image">Profile Image:</label>
+                        <input type="file" id="image" name="image" accept="image/*">
+                        <label for="bio">Bio:</label>
+                        <textarea id="bio" name="bio" rows="4"><%= rst.getString("Bio")%></textarea>
+                        <label for="facebook">Facebook:</label>
+                        <input type="text" id="facebook"value="<%= rst.getString("Facebook")%>" name="facebook">
+                        <label for="LinkedIn">LinkedIn:</label>
+                        <input type="text" id="LinkedIn" value="<%= rst.getString("LinkedIn")%>" name="LinkedIn">
+                        <label for="instagram">Instagram:</label>
+                        <input type="text" id="instagram" value="<%= rst.getString("Instagram")%>" name="instagram">
+                        <input type="submit" value="Save">
+                    </form>
+                </div>
+                        <%}
+            else
+            {
+                   %>
+             <form action="Recommends" enctype="multipart/form-data" method="post"> 
+                        <h2>Profile Information</h2>
+                        <img src="view3.jsp?name=<%=AID%>" width="150px" height="150px"
+                             style="position: relative;left: 60px; border-radius: 50%;background-color: rebeccapurple;"/>
+
                         <label for="User" style="padding-left: 100px;">Goutham</label>
                         <label for="image">Profile Image:</label>
                         <input type="file" id="image" name="image" accept="image/*">
                         <label for="bio">Bio:</label>
                         <textarea id="bio" name="bio" rows="4"></textarea>
                         <label for="facebook">Facebook:</label>
-                        <input type="text" id="facebook" name="facebook">
+                        <input type="text" id="facebook"value="" name="facebook">
                         <label for="LinkedIn">LinkedIn:</label>
-                        <input type="text" id="LinkedIn" name="LinkedIn">
+                        <input type="text" id="LinkedIn" value="" name="LinkedIn">
                         <label for="instagram">Instagram:</label>
-                        <input type="text" id="instagram" name="instagram">
+                        <input type="text" id="instagram" value="" name="instagram">
                         <input type="submit" value="Save">
                     </form>
                 </div>
+                <%
+            }%>
 
                 <div id="Achivements" class="tabcontent">
                     <h2>Achievement</h2>

@@ -213,9 +213,7 @@
         <%        } else {
                             stmt.executeUpdate("INSERT INTO Account(Name, Username, Password, Email, PhoneNo, AccountType) VALUES ('" + Name + "','" + Username + "','" + Password + "','" + Email + "','" + PhoneNo + "', 1)");
                             response.sendRedirect("index.jsp");
-                        
-                                               }
-                
+                                               }               
             }
         %>
         <div class="rain-container" id="rainContainer"></div>

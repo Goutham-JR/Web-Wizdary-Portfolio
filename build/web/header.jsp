@@ -30,7 +30,7 @@
                 height: 40px;
                 width: 1570px;
                 position: fixed;
-                box-shadow: 1px 1px 1px 1px rgb(255,2550,255,0.5);
+                box-shadow: 1px 1px 1px 1px rgb(255,2550,255,0.2);
                 background-color: var(--Color-Background-Color);
                 margin: 10px 40px;
                 z-index: 9999;
@@ -205,7 +205,7 @@
                 bottom: 15px;
                 background-color: white;
             }
-            
+
             .Headerbtn:hover{
                 background-color: var(--Color-Btn);
             }
@@ -232,7 +232,7 @@
                         </div>
                     </li>
                     <li><a href="index.jsp"><i class="fa-solid fa-house"></i> Home</a></li>
-                    <li><a href="Profile.jsp?AID=<%= session.getAttribute("SessionAID") %>"><i class="fa-solid fa-user"></i> Profile</a></li>
+                    <li><a href="Profile.jsp?AID=<%= session.getAttribute("SessionAID")%>"><i class="fa-solid fa-user"></i> Profile</a></li>
                     <li><a href="Message.jsp"><i class="fa-solid fa-message"></i> Message</a></li>
                     <li><a href="Blog.jsp"><i class="fa-solid fa-blog"></i> Blog</a></li>
                     <li><a href="#"><i class="fa-solid fa-address-book"></i>  Contact Us</a></li>
@@ -255,29 +255,23 @@
                         </div>
                     </li>
                     <li class="dropdown">
-                        <h4 class="sessionuser"><%= session.getAttribute("SessionUser") %> <i class="uil uil-comment-verify" style="color: yellow;"></i></h4>
+                        <h4 class="sessionuser"><%= session.getAttribute("SessionUser")%> <i class="uil uil-comment-verify" style="color: yellow;"></i></h4>
                     </li>
                     <%} else {
                     %>
-                    <li><button class="Headerbtn"  id="signupbtn">SignUp</button></li>
-                    <li><button class="Headerbtn"  id="loginbtn">Login</button></li>
-                    <%                        }%>
+                    <li><form action="SignUp.jsp">
+                            <button class="Headerbtn" type="submit">Sign Up</button>
+                        </form>
+                    </li>
+                    <li><form action="Login.jsp">
+                            <button class="Headerbtn" type="submit">Login</button>
+                        </form>
+                    </li>
+                        <% }%>
                 </ul>
             </nav>
         </header>
-        <script>
-            var signupbtn = document.getElementById("signupbtn");
-            var loginbtn = document.getElementById("loginbtn");
-                    
-            signupbtn.addEventListener("click", function(){
-                window.location.replace("SignUp.jsp"); 
-            });
-                    
-            loginbtn.addEventListener("click", function(){
-                window.location.replace("Login.jsp"); 
-            });
-            
-        </script>
+        
     </body>
 
 </html>
