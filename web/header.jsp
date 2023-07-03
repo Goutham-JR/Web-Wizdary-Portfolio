@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/8fa998140f.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <style>
             :root {
                 --Color-text-hover: #fffb00;
@@ -33,7 +34,7 @@
                 box-shadow: 1px 1px 1px 1px rgb(255,2550,255,0.2);
                 background-color: var(--Color-Background-Color);
                 margin: 10px 40px;
-                z-index: 9999;
+                z-index: 999;
 
             }
 
@@ -100,6 +101,36 @@
                 height: fit-content;
                 position: relative;
             }
+            /* Add this CSS code */
+
+
+            .ui-autocomplete {
+                z-index: 9999 !important;
+                position: absolute;
+                border: 1px solid #ccc;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                padding: 5px;
+                max-width: fit-content;
+                max-height: fit-content;
+                overflow-y: auto;
+                color: var( --Color-text-hover);
+                background-color: rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(15px);
+            }
+
+
+            .ui-autocomplete .ui-menu-item {
+                padding: 10px;
+                cursor: pointer;
+            }
+
+            .ui-autocomplete .ui-menu-item  {
+                background-color: rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(15px);
+                padding: 10px;
+                font-size: 16px;
+            }
+
 
             .fas {
                 position: relative;
@@ -131,7 +162,7 @@
                 letter-spacing: 2px;
                 font-weight: 100;
             }
-
+            
             .btn-search {
                 width: 50px;
                 height: 50px;
@@ -154,6 +185,12 @@
                 background-color: transparent;
                 border-bottom: 1px solid rgba(255, 255, 255, .5);
                 transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+            }
+            
+            .btn-search i{
+                position: relative;
+                top: 0px;
+                left: 13px;
             }
 
             .input-search:focus {
@@ -220,16 +257,17 @@
     <body>
 
         <header>
-            <img class="logo"
-                 src="https://www.nvidia.com/content/dam/en-zz/Solutions/about-nvidia/logo-and-brand/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png">
+            <img class="logo" src="https://www.nvidia.com/content/dam/en-zz/Solutions/about-nvidia/logo-and-brand/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png">
 
             <nav>
                 <ul>
                     <li>
-                        <div class="search-box">
-                            <button class="btn-search"><i class="fas fa-search"></i></button>
-                            <input type="text" class="input-search" placeholder="Type to Search...">
-                        </div>
+                        <form>
+                            <div class="search-box">
+                                <button1 class="btn-search"><i class="fas fa-search"></i></button1>
+                                <input type="text" id="search" class="input-search" placeholder="Type to Search...">
+                            </div>
+                        </form>
                     </li>
                     <li><a href="index.jsp"><i class="fa-solid fa-house"></i> Home</a></li>
                     <li><a href="Profile.jsp?AID=<%= session.getAttribute("SessionAID")%>"><i class="fa-solid fa-user"></i> Profile</a></li>
@@ -267,11 +305,31 @@
                             <button class="Headerbtn" type="submit">Login</button>
                         </form>
                     </li>
-                        <% }%>
+                    <% }%>
                 </ul>
             </nav>
         </header>
-        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                $("#search").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "autocompleteData.jsp",
+                            dataType: "json",
+                            data: {
+                                search: request.term
+                            },
+                            success: function (data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    minLength: 1
+                });
+            });
+        </script>
     </body>
 
 </html>

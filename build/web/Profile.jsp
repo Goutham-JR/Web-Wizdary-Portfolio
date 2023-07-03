@@ -725,6 +725,7 @@
 
     <body>
         <%
+            if(session.getAttribute("SessionUser") != null){
             String PName = "";
             String Username = "";
             String Email = "";
@@ -750,6 +751,7 @@
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         %>
         <br />
         <br />
@@ -1187,6 +1189,14 @@
         setInterval(refreshDiv, 3000); // Refresh every 5 seconds
     </script>
 
+<%}else{%>
+<script>
+    alert("Please login first.");
+    window.location.href = "Login.jsp";
+</script>
+    <%
+                               
+}%>
 
 </body>
 

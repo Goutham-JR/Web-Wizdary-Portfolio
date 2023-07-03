@@ -191,7 +191,7 @@
         <%
             if (request.getMethod().equalsIgnoreCase("POST")) {
                 String Name = request.getParameter("Name");
-                String Username = request.getParameter("Username");
+                String SUsername = request.getParameter("Username");
                 String Password = request.getParameter("Password");
                 String CPassword = request.getParameter("CPassword");
                 String PhoneNo = request.getParameter("PhoneNo");
@@ -200,7 +200,7 @@
                     // Prepare the query
                     String query = "SELECT * FROM Account WHERE Username = ?";
                     PreparedStatement pstmt = con.prepareStatement(query);
-                    pstmt.setString(1, Username);
+                    pstmt.setString(1, SUsername);
                     rst = pstmt.executeQuery();
 
                     // Check if a result exists
@@ -211,7 +211,7 @@
             alert("Username already exists");
         </script>
         <%        } else {
-                            stmt.executeUpdate("INSERT INTO Account(Name, Username, Password, Email, PhoneNo, AccountType) VALUES ('" + Name + "','" + Username + "','" + Password + "','" + Email + "','" + PhoneNo + "', 1)");
+                            stmt.executeUpdate("INSERT INTO Account(Name, Username, Password, Email, PhoneNo, AccountType) VALUES ('" + Name + "','" + SUsername + "','" + Password + "','" + Email + "','" + PhoneNo + "', 1)");
                             response.sendRedirect("index.jsp");
                                                }               
             }
@@ -240,7 +240,7 @@
                                                     required></label>
                     <label for="Phone Number">Phone Number<input type="Text" name="PhoneNo" placeholder="Enter the Phone Number"
                                                                  required></label> 
-                    <input type="submit" value="Login">
+                    <input type="submit" value="Sign up">
                     <a href="Login.jsp">Have an account? Login here</a>
                 </form>
             </div>
