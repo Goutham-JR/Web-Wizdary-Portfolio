@@ -150,6 +150,7 @@
 
             .main-menu {
                 display: flex;
+                top:0;
             }
         </style>
         <script>
@@ -315,8 +316,25 @@
     </head>
 
     <body>
+        <%
+            String AID = session.getAttribute("SessionAID").toString();
+            if (request.getMethod().equalsIgnoreCase("POST")) {
+                if (request.getParameter("AccountPrivacy") != null) {
+                    String Name = request.getParameter("PrivacyName");
+                    String DOB = request.getParameter("PrivacyDOB");
+                    String Email = request.getParameter("PrivacyEmail");
+                    String Password = request.getParameter("PrivacyPassword");
+                    String Address = request.getParameter("PrivacyAddress");
+                    stmt.executeUpdate("UPDATE Account SET Name='" + Name + "', DOB='" + DOB + "', Email='" + Email + "', Password='" + Password + "', Address='" + Address + "' WHERE AID='" + AID + "'");
+                    response.sendRedirect("Usermanage.jsp");
+                } else if (request.getParameter("RequestVerification") != null) {
 
-       
+                    stmt.executeUpdate("INSERT INTO Verification(AID, Username, Date)values('" + AID + "', '" + session.getAttribute("SessionUser") + "', NOW())");
+                    response.sendRedirect("index.jsp");
+                }
+            }
+        %>
+
         <div class="main-menu">
             <div class="menu">
                 <ul>
@@ -329,7 +347,7 @@
                             <li><a href="#" onclick="openPage(event, 'Achivements')"><i class="fa-solid fa-star"></i> Achivements</a>
                             </li>
                             <li><a href="#" onclick="openPage(event, 'Blog')"><i class="fa-solid fa-blog"></i> Blog</a></li>
-                            <li><a href="#"><i class="fa-solid fa-file-pen"></i> Modify CV</a></li>
+                            <li><a href="#" onclick="openPage(event, 'ModifyCV')"><i class="fa-solid fa-file-pen"></i> Modify CV</a></li>
                             <li><a href="#" onclick="openPage(event, 'ProjectShowcase')"><i class="fa-solid fa-handshake"></i> Project Showcase</a></li>
                             <li><a href="#" onclick="openPage(event, 'Skills')"><i class="fa-solid fa-bolt"></i> Skills</a></li>
                         </ul>
@@ -344,17 +362,17 @@
                         </ul>
                     </li>
                 </ul>
-            
+            </div>
             <div class="form-container">
-                <div id="Profile" class="tabcontent">
-                    </div>
-             <%
-        
-            rst = stmt.executeQuery("SELECT * FROM profile WHERE AID='"+session.getAttribute("SessionAID") +"'");
-            String AID = session.getAttribute("SessionAID").toString();
-            if (rst.next()) {
 
-        %>
+
+                <%
+
+                    rst = stmt.executeQuery("SELECT * FROM profile WHERE AID='" + AID + "'");
+                    if (rst.next()) {
+
+                %>
+                <div id="Profile" class="tabcontent">
                     <form action="Recommends" enctype="multipart/form-data" method="post"> 
                         <h2>Profile Information</h2>
                         <img src="view3.jsp?name=<%=AID%>" width="150px" height="150px"
@@ -374,11 +392,9 @@
                         <input type="submit" value="Save">
                     </form>
                 </div>
-                        <%}
-            else
-            {
-                   %>
-             <form action="Recommends" enctype="multipart/form-data" method="post"> 
+                <%} else {%>
+                <div id="Profile" class="tabcontent">
+                    <form action="Recommends" enctype="multipart/form-data" method="post"> 
                         <h2>Profile Information</h2>
                         <img src="view3.jsp?name=<%=AID%>" width="150px" height="150px"
                              style="position: relative;left: 60px; border-radius: 50%;background-color: rebeccapurple;"/>
@@ -398,8 +414,14 @@
                     </form>
                 </div>
                 <%
-            }%>
-
+                    }%>
+                <div id="ModifyCV" class="tabcontent" align="center">
+                    <form action="UploadCV" enctype="multipart/form-data" method="post"> 
+                        <h2>Upload CV</h2>                
+                        <input type="file" id="image" name="CVFile" accept="" style="padding-left:120px;padding-top: 20px;">
+                        <input type="submit" name="ModifyCV" value="Save">
+                    </form>
+                </div>
                 <div id="Achivements" class="tabcontent">
                     <h2>Achievement</h2>
                     <label for="achievementTitle">Title:</label>
@@ -452,31 +474,55 @@
                     <br>
                     <input type="submit" value="Post">
                 </div>
+                <%
+                    rst = stmt.executeQuery("SELECT * FROM Account WHERE AID='" + AID + "'");
+                    if (rst.next()) {
 
-                <div id="Privacy" class="tabcontent">
-                    <h2>Privacy</h2>
-                    <label for="PrivacyName">Name:</label>
-                    <input type="text" id="PrivacyName" name="PrivacyName">
-                    <label for="PrivacyDOB">DOB:</label>
-                    <input type="date" id="PrivacyDOB" name="PrivacyDOB">
-                    <label for="PrivacyEmail">Email:</label>
-                    <input type="text" id="PrivacyEmail" name="PrivacyEmail">
-                    <label for="PrivacyPassword">Password:</label>
-                    <input type="password" id="PrivacyPassword" name="PrivacyPassword">
-                    <label for="PrivacycPassword">Confirm Password:</label>
-                    <input type="password" id="PrivacycPassword" name="PrivacycPassword">
-                    <label for="PrivacyAddress">Address:</label>
-                    <textarea name="PrivacyAddress" id="PrivacyAddress" cols="10" rows="10"></textarea>
-                    <br>
-                    <input type="submit" value="Save">
-                </div>
+                %>
+                <form action="Usermanage.jsp" method="POST">
+                    <div id="Privacy" class="tabcontent">
+                        <h2>Privacy</h2>
+                        <label for="PrivacyName">Name:</label>
+                        <input type="text" id="PrivacyName" value="<%=rst.getString("Name")%>" name="PrivacyName">
+                        <label for="PrivacyDOB">DOB:</label>
+                        <input type="date" id="PrivacyDOB" value="<%=rst.getString("DOB")%>" name="PrivacyDOB">
+                        <label for="PrivacyEmail">Email:</label>
+                        <input type="text" id="PrivacyEmail" value="<%=rst.getString("Email")%>" name="PrivacyEmail">
+                        <label for="PrivacyPassword">Password:</label>
+                        <input type="password" id="PrivacycPassword" value="<%=rst.getString("Password")%>" name="PrivacyPassword">
+                        <label for="PrivacyAddress">Address:</label>
+                        <textarea name="PrivacyAddress" id="PrivacyAddress" cols="10" rows="10"><%=rst.getString("Address")%></textarea>
+                        <br>
+                        <input type="submit" name="AccountPrivacy" value="Save">
+                    </div>
+                </form>
+                <%} else {%>
+                <form action="Usermanage.jsp" method="POST">
+                    <div id="Privacy" class="tabcontent">
+                        <h2>Privacy</h2>
+                        <label for="PrivacyName">Name:</label>
+                        <input type="text" id="PrivacyName" name="PrivacyName">
+                        <label for="PrivacyDOB">DOB:</label>
+                        <input type="date" id="PrivacyDOB" name="PrivacyDOB">
+                        <label for="PrivacyEmail">Email:</label>
+                        <input type="text" id="PrivacyEmail" name="PrivacyEmail">
+                        <label for="PrivacyPassword">Password:</label>
+                        <input type="password" id="PrivacycPassword" name="PrivacyPassword">
+                        <label for="PrivacyAddress">Address:</label>
+                        <textarea name="PrivacyAddress" id="PrivacyAddress" cols="10" rows="10"></textarea>
+                        <br>
+                        <input type="submit" value="Save">
+                    </div>
+                </form>
+                <%}%>
+                <form action="Usermanage.jsp" method="POST">
+                    <div id="Verify" class="tabcontent">
+                        <h2>Request Verification</h2>
 
-                <div id="Verify" class="tabcontent">
-                    <h2>Request Verification</h2>
-
-                    <br>
-                    <input type="submit" value="Request">
-                </div>
+                        <br>
+                        <input type="submit" name="RequestVerification" value="RequestVerification">
+                    </div>
+                </form>
             </div>
         </div>
     </body>

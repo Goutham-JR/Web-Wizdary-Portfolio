@@ -764,7 +764,7 @@
                 String CompletedProjects = "";
                 String reviewedCustomers = "";
                 String Achivements = "";
-                
+
                 try {
                     rst = stmt.executeQuery("SELECT * FROM profile WHERE AID='" + AID + "'");
                     if (rst.next()) {
@@ -872,66 +872,36 @@
                         <hr>
                         <div class="personal-details">
                             <p>Residence: <%=Residence%></p>
-                            <p>DOB: <%=DOB %></p>
-                            <p>City: <%=City %></p>
+                            <p>DOB: <%=DOB%></p>
+                            <p>City: <%=City%></p>
                         </div>
                         <hr>
                         <div class="languages">
                             <p>Languages you know:</p>
                             <ul>
-                                <li><span class="language-circle">ENGLISH</span></li>
-                                <li><span class="language-circle">TELUGU</span></li>
-                                <li><span class="language-circle">KANNADA</span></li>
-                                <li><span class="language-circle">TAMIL</span></li>
-                                <li><span class="language-circle">HINDI</span></li>
+                                <%
+                                    rst = stmt.executeQuery("SELECT * FROM Languages WHERE AID='" + AID + "'");
+                                    while (rst.next()) {
+                                %>
+                                <li><span class="language-circle"><%= rst.getString(2)%></span></li>
+                                <%}%>
                             </ul>
                         </div>
                         <hr>
                         <div class="skills">
                             <h2>Skills</h2>
                             <ul>
+                                <%
+                                    rst = stmt.executeQuery("SELECT * FROM skills WHERE AID='" + AID + "'");
+                                    while (rst.next()) {
+                                %>
                                 <li>
-                                    <span class="skill-name">Html</span>
+                                    <span class="skill-name"><%=rst.getString(2) %></span>
                                     <div class="skill-bar">
-                                        <div class="skill-progress" style="width: 100%;"></div>
+                                        <div class="skill-progress" style="width: <%=rst.getString(3).toString().concat("%") %>;"></div>
                                     </div>
                                 </li>
-                                <li>
-                                    <span class="skill-name">Css</span>
-                                    <div class="skill-bar">
-                                        <div class="skill-progress" style="width: 28%;"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span class="skill-name">Javascript</span>
-                                    <div class="skill-bar">
-                                        <div class="skill-progress" style="width: 20%;"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span class="skill-name">C++</span>
-                                    <div class="skill-bar">
-                                        <div class="skill-progress" style="width: 80%;"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span class="skill-name">C#</span>
-                                    <div class="skill-bar">
-                                        <div class="skill-progress" style="width: 50%;"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span class="skill-name">Java</span>
-                                    <div class="skill-bar">
-                                        <div class="skill-progress" style="width: 75%;"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span class="skill-name">SQL</span>
-                                    <div class="skill-bar">
-                                        <div class="skill-progress" style="width: 60%;"></div>
-                                    </div>
-                                </li>
+                                <%}%>        
                             </ul>
                         </div>
 

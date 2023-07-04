@@ -12,6 +12,10 @@
         <servlet-name>Recommend</servlet-name>
         <servlet-class>network.Recommend</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadCV</servlet-name>
+        <servlet-class>network.UploadCV</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FileUploadDBSer</servlet-name>
         <url-pattern>/FileUploadDBSer</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>Recommend</servlet-name>
         <url-pattern>/Recommend</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>UploadCV</servlet-name>
+        <url-pattern>/UploadCV</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
