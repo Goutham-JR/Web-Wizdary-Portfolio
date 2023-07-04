@@ -280,7 +280,7 @@
                     <li class="dropdown">
                         <div class="profile">
                             <img class="profile-img"
-                                 src="view3.jsp?name=<%= session.getAttribute("SessionAID")%>" height="25px"
+                                 src="ViewProfile.jsp?name=<%= session.getAttribute("SessionAID")%>" height="25px"
                                  width="25px" alt="Your profile picture">
                             <div class="dropdown-menu">
                                 <a href="Usermanage.jsp"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>

@@ -203,40 +203,6 @@
                 skillContainer.appendChild(addButton);
                 skillsContainer.appendChild(skillContainer);
             }
-
-            function addProjectField() {
-                const projectsContainer = document.getElementById('projectsContainer');
-
-                const projectContainer = document.createElement('div');
-                projectContainer.classList.add('project-container');
-
-                const imageInput = document.createElement('input');
-                imageInput.type = 'file';
-                imageInput.name = 'projectImages[]';
-                imageInput.accept = 'image/*';
-
-                const titleInput = document.createElement('input');
-                titleInput.type = 'text';
-                titleInput.name = 'projectTitles[]';
-                titleInput.placeholder = 'Title';
-
-                const descriptionInput = document.createElement('textarea');
-                descriptionInput.name = 'projectDescriptions[]';
-                descriptionInput.placeholder = 'Description';
-                descriptionInput.rows = 4;
-
-                const addButton = document.createElement('button');
-                addButton.classList.add('add-project-btn');
-                addButton.type = 'button';
-                addButton.textContent = '+';
-                addButton.addEventListener('click', addProjectField);
-
-                projectContainer.appendChild(imageInput);
-                projectContainer.appendChild(titleInput);
-                projectContainer.appendChild(descriptionInput);
-                projectContainer.appendChild(addButton);
-                projectsContainer.appendChild(projectContainer);
-            }
             function formatText(action) {
                 const content = document.getElementById('blogContent');
                 const startPos = content.selectionStart;
@@ -245,21 +211,23 @@
 
                 switch (action) {
                     case 'bold':
-                        selectedText = "<strong>" + selectedText + "</strong>";
+                        selectedText = "<strong>"+selectedText+"</strong>";
                         break;
                     case 'italic':
-                        selectedText = "<em>" + selectedText + "</em>";
+                        selectedText = "<em>"+selectedText+"</em>";
                         break;
                     case 'underline':
-                        selectedText = "<u>" + selectedText + "</u>";
+                        selectedText = "<u>"+selectedText+"</u>";
                         break;
-                    case 'imagebtn':
-                        selectedText = "<img src='" + selectedText + "' width='200px' height='200px'>";
+                    case 'insertImage':
+                        selectedText = "<img src=\""+selectedText+"\" width=\"200px\" height=\"200px\" >";
+                        break;
+                    case 'breakline':
+                        selectedText = "<br/>";
                         break;
                     default:
                         break;
                 }
-
 
                 const updatedContent =
                     content.value.substring(0, startPos) +
@@ -273,7 +241,7 @@
             function previewBlog() {
                 const title = document.getElementById('blogTitle').value;
                 const content = document.getElementById('blogContent').value;
-                const image = document.getElementById('blogImage').files[0];
+                   
 
                 const blogPreview = document.getElementById('blogPreview');
                 blogPreview.innerHTML = '';
@@ -285,15 +253,7 @@
                 const contentElement = document.createElement('div');
                 contentElement.innerHTML = content;
                 blogPreview.appendChild(contentElement);
-
-                if (image) {
-                    const img = document.createElement('img');
-                    img.src = URL.createObjectURL(image);
-                    img.alt = 'Blog Image';
-                    blogPreview.appendChild(img);
-                }
             }
-
 
 
             function openPage(evt, PageName) {
@@ -328,9 +288,13 @@
                     stmt.executeUpdate("UPDATE Account SET Name='" + Name + "', DOB='" + DOB + "', Email='" + Email + "', Password='" + Password + "', Address='" + Address + "' WHERE AID='" + AID + "'");
                     response.sendRedirect("Usermanage.jsp");
                 } else if (request.getParameter("RequestVerification") != null) {
-
                     stmt.executeUpdate("INSERT INTO Verification(AID, Username, Date)values('" + AID + "', '" + session.getAttribute("SessionUser") + "', NOW())");
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("Usermanage.jsp");
+                } else if (request.getParameter("Blogs") != null) {
+                    String blogTitle = request.getParameter("blogTitle");
+                    String blogContent = request.getParameter("blogContent");
+                    stmt.executeUpdate("INSERT INTO blog(AID, Title, Description, Date)values('" + AID + "', '" + blogTitle + "', '" + blogContent + "', NOW())");
+                    response.sendRedirect("Usermanage.jsp");
                 }
             }
         %>
@@ -375,7 +339,7 @@
                 <div id="Profile" class="tabcontent">
                     <form action="Recommends" enctype="multipart/form-data" method="post"> 
                         <h2>Profile Information</h2>
-                        <img src="view3.jsp?name=<%=AID%>" width="150px" height="150px"
+                        <img src="ViewProfile.jsp?name=<%=AID%>" width="150px" height="150px"
                              style="position: relative;left: 60px; border-radius: 50%;background-color: rebeccapurple;"/>
 
                         <label for="User" style="padding-left: 100px;">Goutham</label>
@@ -396,7 +360,7 @@
                 <div id="Profile" class="tabcontent">
                     <form action="Recommends" enctype="multipart/form-data" method="post"> 
                         <h2>Profile Information</h2>
-                        <img src="view3.jsp?name=<%=AID%>" width="150px" height="150px"
+                        <img src="ViewProfile.jsp?name=<%=AID%>" width="150px" height="150px"
                              style="position: relative;left: 60px; border-radius: 50%;background-color: rebeccapurple;"/>
 
                         <label for="User" style="padding-left: 100px;">Goutham</label>
@@ -462,22 +426,25 @@
                     </div>
                 </div>
 
-                <div id="Blog" class="tabcontent">
-                    <h2>Blog</h2>
-                    <label for="blogTitle">Title:</label>
-                    <input type="text" id="blogTitle" name="blogTitle" oninput="previewBlog()">
-                    <label for="blogContent">Content:</label>
-                    <div>
-                        <button type="button" onclick="formatText('bold')">Bold</button>
-                        <button type="button" onclick="formatText('italic')">Italic</button>
-                        <button type="button" onclick="formatText('underline')">Underline</button>
-                        <button type="button" onclick="formatText('imagebtn')">Image</button>
+                <form action="Usermanage.jsp" method="POST">
+                    <div id="Blog" class="tabcontent">
+                        <h2>Blog</h2>
+                        <label for="blogTitle">Title:</label>
+                        <input type="text" id="blogTitle" name="blogTitle" oninput="previewBlog()">
+                        <label for="blogContent">Content:</label>
+                        <div>
+                            <button type="button" onclick="formatText('bold')">Bold</button>
+                            <button type="button" onclick="formatText('italic')">Italic</button>
+                            <button type="button" onclick="formatText('underline')">Underline</button>
+                            <button type="button" onclick="formatText('insertImage')">Add Image</button>
+                            <button type="button" onclick="formatText('breakline')">Next Line</button>
+                        </div>
+                        <textarea id="blogContent" name="blogContent" rows="10" oninput="previewBlog()"></textarea>                   
+                        <div class="blog-preview" id="blogPreview"></div>
+                        <br>
+                        <input type="submit" name="Blogs" value="Post">
                     </div>
-                    <textarea id="blogContent" name="blogContent" rows="6" oninput="previewBlog()"></textarea>
-                    <div class="blog-preview" id="blogPreview"></div>
-                    <br>
-                    <input type="submit" value="Post">
-                </div>
+                </form>
                 <%
                     rst = stmt.executeQuery("SELECT * FROM Account WHERE AID='" + AID + "'");
                     if (rst.next()) {

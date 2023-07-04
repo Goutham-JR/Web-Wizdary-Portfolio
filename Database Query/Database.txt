@@ -51,10 +51,22 @@ CREATE TABLE Achievements (
 );
 
 CREATE TABLE ProjectShowCase (
+    PSCID int NOT NULL AUTO_INCREMENT,
     AID int,
     PSCImage LongBlob,
     Title varchar(255),
-    Description varchar(2500)
+    Date datetime,
+    Description varchar(2500),
+    PRIMARY KEY (PSCID)
+);
+
+CREATE TABLE Blog (
+    BID int NOT NULL AUTO_INCREMENT,
+    AID int,
+    Title varchar(255),
+    Description text,
+    Date datetime,
+    PRIMARY KEY (BID)
 );
 
 CREATE TABLE message (
@@ -89,4 +101,5 @@ select
     ReviewdCustomers,
     Achivements
    from profile;
+
 

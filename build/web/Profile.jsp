@@ -792,7 +792,7 @@
         <div class="profile-banner">
             <img src="Images/naturebg.jpg" alt="Profile-banner" class="Profile-banner">
         </div>
-        <img src="view3.jsp?name=<%=AID%>" class="Profile-Img" alt="">
+        <img src="ViewProfile.jsp?name=<%=AID%>" class="Profile-Img" alt="">
         <div class="profile-rectangle">
             <div class="profile-about">
                 <h2><%=PName%> 
@@ -949,11 +949,11 @@
                                         rst = stmt.executeQuery("SELECT * FROM projectshowcase WHERE AID='" + AID + "'");
                                         while (rst.next()) {
                                     %>
-                                    <img class="Project-Images" src="ViewProjectSC.jsp?PSCID=<%=rst.getString(1) %>" alt="l">
+                                    <img class="Project-Images" src="ViewProjectSC.jsp?PSCID=<%=rst.getString(1)%>" alt="l">
                                     <div class="Project-Title">
-                                        <%=rst.getString(4) %>
+                                        <%=rst.getString(4)%>
                                         <div class="Project-Discription">
-                                            <%=rst.getString(6) %>
+                                            <%=rst.getString(6)%>
                                         </div>
                                     </div>
                                     <%}%>
@@ -963,68 +963,20 @@
                     </div>
                     <div id="Blog" class="tabcontent">
                         <h1>BLOG</h1>
+                        <%
+                            rst = stmt.executeQuery("SELECT * FROM Blog WHERE AID='" + AID + "' order by Date");
+                            while (rst.next()) {
+                        %>
                         <article>
+                            <img class="bprofile-pic" src="ViewProfile.jsp?name=<%=AID%>">
+                            <h2><%=rst.getString(3) %></h2>
+                            <p>Published on <time datetime="2023-05-01"><%=rst.getString(5) %></time></p>
 
-                            <img class="bprofile-pic" src="Images/confused.png" alt="John Doe's Profile Picture">
-                            <h2>My First Blog Post</h2>
-                            <p>Published on <time datetime="2023-05-01">May 1, 2023</time> by John Doe
-                            </p>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
-                                diam vel arcu
-                                posuere, non
-                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa
-                                hendrerit, eget
-                                venenatis
-                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis
-                                eget magna aliquet,
-                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor
-                                dignissim vitae in
-                                quam.
-                                Phasellus vehicula nisi id quam ultrices, id luctus dui tincidunt.</p>
+                            <p><%=rst.getString(4) %></p>
                             <hr>
                         </article>
-                        <article>
-
-                            <img class="bprofile-pic" src="Images/confused.png" alt="John Doe's Profile Picture">
-                            <h2>My First Blog Post</h2>
-                            <p>Published on <time datetime="2023-05-01">May 1, 2023</time> by John Doe
-                            </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
-                                diam vel arcu
-                                posuere, non
-                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa
-                                hendrerit, eget
-                                venenatis
-                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis
-                                eget magna aliquet,
-                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor
-                                dignissim vitae in
-                                quam.
-                                Phasellus vehicula nisi id quam ultrices, id luctus dui tincidunt.</p>
-                            <hr>
-                        </article>
-                        <article>
-
-                            <img class="bprofile-pic" src="Images/confused.png" alt="John Doe's Profile Picture">
-                            <h2>My First Blog Post</h2>
-                            <p>Published on <time datetime="2023-05-01">May 1, 2023</time> by John Doe
-                            </p>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
-                                diam vel arcu
-                                posuere, non
-                                fermentum metus lacinia. Nulla facilisi. Sed fringilla ipsum sed massa
-                                hendrerit, eget
-                                venenatis
-                                risus rhoncus. Sed vitae libero vel nisl consectetur imperdiet. Duis
-                                eget magna aliquet,
-                                sagittis risus nec, tincidunt elit. Donec sed lectus eget enim tempor
-                                dignissim vitae in
-                                quam.
-                                Phasellus vehicula nisi id quam ultrices, id luctus dui tincidunt.</p>
-                            <hr>
-                        </article>
+                        <%}%>
+                       
                     </div>
                 </div>
             </div>
