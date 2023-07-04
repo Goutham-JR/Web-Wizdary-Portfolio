@@ -782,6 +782,7 @@
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                
         %>
         <br />
         <br />
@@ -929,15 +930,16 @@
                     <div id="ContactUs" class="tabcontent">
                         <h1>CONTACT US</h1>
                         <div class="contactdiv">
-                            <label for="Name">Name <input type="text" name="Name" placeholder="Enter the Name"
-                                                          required></label>
-                            <label for="Email">Email <input type="email" name="Email" placeholder="Enter the Email"
-                                                            required></label>
-                            <label for="Phone Number">Phone Number<input type="Text" name="PhoneNo"
-                                                                         placeholder="Enter the Phone Number" required></label>
-                            <label for="Message">Message <input type="text" name="Message"
-                                                                placeholder="Enter the Message" required></label>
-                            <input type="submit" class="contact-submitBtn" value="Submit">
+                            <form action="Contact.jsp" method="POST"> 
+                                <label for="Name">Name <input type="text" name="Name" placeholder="Enter the Name"
+                                                              required></label>
+                                <label for="Email">Email <input type="email" name="Email" placeholder="Enter the Email"
+                                                                required></label>
+                                <label for="Phone Number">Phone Number<input type="Text" name="PhoneNo" placeholder="Enter the Phone Number" required></label>
+                                <label for="Message">Message <input type="text" name="Message" placeholder="Enter the Message" required></label>
+                                <input type="hidden" name="AID" class="contact-submitBtn" value="<%=AID %>">
+                                <input type="submit" name="Contact" class="contact-submitBtn" value="Submit">
+                            </form>
                         </div>
                     </div>
                     <div id="ProjectShowCase" class="tabcontent">
@@ -969,14 +971,14 @@
                         %>
                         <article>
                             <img class="bprofile-pic" src="ViewProfile.jsp?name=<%=AID%>">
-                            <h2><%=rst.getString(3) %></h2>
-                            <p>Published on <time datetime="2023-05-01"><%=rst.getString(5) %></time></p>
+                            <h2><%=rst.getString(3)%></h2>
+                            <p>Published on <time datetime="2023-05-01"><%=rst.getString(5)%></time></p>
 
-                            <p><%=rst.getString(4) %></p>
+                            <p><%=rst.getString(4)%></p>
                             <hr>
                         </article>
                         <%}%>
-                       
+
                     </div>
                 </div>
             </div>

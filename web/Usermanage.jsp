@@ -295,6 +295,11 @@
                     String blogContent = request.getParameter("blogContent");
                     stmt.executeUpdate("INSERT INTO blog(AID, Title, Description, Date)values('" + AID + "', '" + blogTitle + "', '" + blogContent + "', NOW())");
                     response.sendRedirect("Usermanage.jsp");
+                } else if (request.getParameter("Skill") != null) {
+                    String skill = request.getParameter("skills[]");
+                    String percentage = request.getParameter("skillPercentages[]");
+                    stmt.executeUpdate("INSERT INTO Skills (AID, Skills, Percentage) VALUES ('"+AID+"', '"+skill+"', '"+percentage+"')");               
+                    response.sendRedirect("Usermanage.jsp");
                 }
             }
         %>
@@ -401,10 +406,11 @@
                     <h2>Skills</h2>
                     <div id="skillsContainer">
                         <div class="skills-container">
-                            <input type="text" name="skills[]" placeholder="Enter a skill">
-                            <input type="number" name="skillPercentages[]" placeholder="Percentage">
-                            <button class="add-skill-btn" type="button" onclick="addSkillField()">+</button>
-                            <input type="submit" value="Add">
+                            <form action="Usermanage.jsp" method="POST">
+                                <input type="text" name="skills[]" placeholder="Enter a skill">
+                                <input type="number" name="skillPercentages[]" placeholder="Percentage">                                
+                                <input type="submit" name="Skill" value="Add">
+                            </form>
                         </div>
                     </div>
                 </div>

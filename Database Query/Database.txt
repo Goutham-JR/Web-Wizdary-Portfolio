@@ -87,6 +87,15 @@ CREATE TABLE UserCV (
     File longblob    
 );
 
+CREATE TABLE ContactUs(
+    AID int,
+    Name varchar(50),
+    Email varchar(50),
+    PhoneNo varchar(20),
+    Message varchar(255),
+    Status varchar(20)
+);
+
 select  
     PID,
     AID,
