@@ -16,6 +16,10 @@
         <servlet-name>UploadCV</servlet-name>
         <servlet-class>network.UploadCV</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Achievement</servlet-name>
+        <servlet-class>network.Achievement</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FileUploadDBSer</servlet-name>
         <url-pattern>/FileUploadDBSer</url-pattern>
@@ -28,9 +32,13 @@
         <servlet-name>Recommend</servlet-name>
         <url-pattern>/Recommend</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UploadCV</servlet-name>
         <url-pattern>/UploadCV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Achievement</servlet-name>
+        <url-pattern>/Achievement</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

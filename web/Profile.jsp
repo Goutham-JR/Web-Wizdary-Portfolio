@@ -896,9 +896,9 @@
                                     while (rst.next()) {
                                 %>
                                 <li>
-                                    <span class="skill-name"><%=rst.getString(2) %></span>
+                                    <span class="skill-name"><%=rst.getString(2)%></span>
                                     <div class="skill-bar">
-                                        <div class="skill-progress" style="width: <%=rst.getString(3).toString().concat("%") %>;"></div>
+                                        <div class="skill-progress" style="width: <%=rst.getString(3).toString().concat("%")%>;"></div>
                                     </div>
                                 </li>
                                 <%}%>        
@@ -913,11 +913,16 @@
                         <h1>ACHIVEMENTS</h1>
                         <div class="acontainer">
                             <div class="aitems">
+                                <%
+                                    rst = stmt.executeQuery("SELECT * FROM Achievements WHERE AID='" + AID + "'");
+                                    while (rst.next()) {
 
+                                %>
                                 <div class="Achivement-left">
-                                    <img class="achivement-Images" src="Images/naturebg.jpg" alt="l">
-                                    <div class="Achivement-Title">Email</div>
+                                    <img class="achivement-Images" src="ViewAchievements.jsp?AID=<%=AID%>" alt="l">
+                                    <div class="Achivement-Title"><%=rst.getString(3) %></div>
                                 </div>
+                                <%}%>
                             </div>
                         </div>
                     </div>

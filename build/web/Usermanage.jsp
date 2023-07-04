@@ -418,17 +418,19 @@
                 <div id="ModifyCV" class="tabcontent" align="center">
                     <form action="UploadCV" enctype="multipart/form-data" method="post"> 
                         <h2>Upload CV</h2>                
-                        <input type="file" id="image" name="CVFile" accept="" style="padding-left:120px;padding-top: 20px;">
+                        <input type="file" id="image" name="CVFile" accept="" style="padding-left:120px;padding-top: 20px;" required>
                         <input type="submit" name="ModifyCV" value="Save">
                     </form>
                 </div>
                 <div id="Achivements" class="tabcontent">
-                    <h2>Achievement</h2>
-                    <label for="achievementTitle">Title:</label>
-                    <input type="text" id="achievementTitle" name="achievementTitle">
-                    <label for="achievementImage">Image:</label>
-                    <input type="file" id="achievementImage" name="achievementImage" accept="image/*">
-                    <input type="submit" value="Add">
+                    <form action="Achievement" enctype="multipart/form-data" method="post">
+                        <h2>Achievement</h2>
+                        <label for="achievementTitle">Title:</label>
+                        <input type="text" id="achievementTitle" name="achievementTitle">
+                        <label for="achievementImage">Image:</label>
+                        <input type="file" id="achievementImage" name="achievementImage" accept="image/*">
+                        <input type="submit" value="Add">
+                    </form>
                 </div>
 
                 <div id="Skills" class="tabcontent">
