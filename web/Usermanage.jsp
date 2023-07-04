@@ -449,13 +449,13 @@
                     <h2>Project Showcase</h2>
                     <div id="projectsContainer">
                         <div class="project-container">
-                            <form action="Achievement" enctype="multipart/form-data" method="post">
+                            <form action="ProjectSC" enctype="multipart/form-data" method="post">
                                 <label for="projectTitle">Title:</label>
-                                <input type="text" id="projectTitle" name="projectTitles[]">
+                                <input type="text" id="projectTitle" name="projectTitle">
                                 <label for="projectImage">Image:</label>
-                                <input type="file" id="projectImage" name="projectImages[]" accept="image/*">
+                                <input type="file" id="projectImage" name="projectImage" accept="image/*">
                                 <label for="projectDescription">Description:</label>
-                                <textarea id="projectDescription" name="projectDescriptions[]" rows="4"></textarea>
+                                <textarea id="projectDescription" name="projectDescription" rows="4"></textarea>
                                 <input type="submit" value="Add">
                             </form>
                         </div>

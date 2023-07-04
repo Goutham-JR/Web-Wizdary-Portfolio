@@ -1,0 +1,92 @@
+CREATE DATABASE Portfolio;
+
+CREATE TABLE Account (
+    AID int NOT NULL AUTO_INCREMENT,
+    Name varchar(255),
+    Username varchar(255),
+    Password varchar(255),
+    Email varchar(255),
+    PhoneNo varchar(255),
+    Address varchar(255),
+    AccountType varchar(255),
+    Gender bit,
+    DOB date,
+    PRIMARY KEY (AID)
+);
+
+CREATE TABLE Profile (
+    AID int,
+    PImage LongBlob,
+    Bio varchar(255),
+    Instagram varchar(255),
+    Facebook varchar(255),
+    LinkedIn varchar(255),
+    City varchar(255),
+    Residence varchar(255),
+    Experience int,
+    CompletedProjects int,
+    ReviewedCustomers int,
+    Achivements int
+);
+
+
+CREATE TABLE Languages (
+    AID int,
+    Language varchar(255)
+);
+
+CREATE TABLE Skills (
+    AID int,
+    Skills varchar(255),
+    Percentage int
+);
+
+CREATE TABLE Achievements (
+    ACID int NOT NULL AUTO_INCREMENT,
+    AID int,
+    AImage LongBlob,
+    Title varchar(255),
+    Date datetime,
+    PRIMARY KEY (ACID)
+);
+
+CREATE TABLE ProjectShowCase (
+    AID int,
+    PSCImage LongBlob,
+    Title varchar(255),
+    Description varchar(2500)
+);
+
+CREATE TABLE message (
+    sender int,
+    receiver int,
+    message varchar(255),
+    date datetime
+);
+
+CREATE TABLE Verification (
+    AID int,
+    Username varchar(25),
+    Date Datetime    
+);
+
+CREATE TABLE UserCV (
+    AID int,
+    File longblob    
+);
+
+select  
+    PID,
+    AID,
+    Bio,
+    Instagram,
+    Facebook,
+    LinkedIn,
+    City,
+    Residence,
+    Experience,
+    CompletedProjects,
+    ReviewdCustomers,
+    Achivements
+   from profile;
+

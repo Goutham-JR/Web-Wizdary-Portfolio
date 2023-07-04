@@ -945,26 +945,18 @@
                         <div class="pcontainer">
                             <div class="pitems">
                                 <div class="pcontainer-left">
-                                    <%%>
-                                    <img class="Project-Images" src="Images/naturebg.jpg" alt="l">
+                                    <%
+                                        rst = stmt.executeQuery("SELECT * FROM projectshowcase WHERE AID='" + AID + "'");
+                                        while (rst.next()) {
+                                    %>
+                                    <img class="Project-Images" src="ViewProjectSC.jsp?PSCID=<%=rst.getString(1) %>" alt="l">
                                     <div class="Project-Title">
-                                        Hi
+                                        <%=rst.getString(4) %>
                                         <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
-                                            sollicitudin
-                                            nibh ac
-                                            rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius
-                                            tellus ac,
-                                            tincidunt arcu.
-                                            Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere,
-                                            libero ac scelerisque
-                                            malesuada,
-                                            justo ex
+                                            <%=rst.getString(6) %>
                                         </div>
                                     </div>
-                                    <%%>
+                                    <%}%>
                                 </div>
                             </div>
                         </div>

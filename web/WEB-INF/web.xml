@@ -20,6 +20,10 @@
         <servlet-name>Achievement</servlet-name>
         <servlet-class>network.Achievement</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProjectSC</servlet-name>
+        <servlet-class>network.ProjectSC</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FileUploadDBSer</servlet-name>
         <url-pattern>/FileUploadDBSer</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>Achievement</servlet-name>
         <url-pattern>/Achievement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProjectSC</servlet-name>
+        <url-pattern>/ProjectSC</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
