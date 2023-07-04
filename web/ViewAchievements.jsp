@@ -13,12 +13,12 @@
     byte[] imgData = null;
     Statement stmt = null;
     ResultSet rs = null;
-    String AID = request.getParameter("AID");
+    String ACID = request.getParameter("ACID");
     try {
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Portfolio", "root", "Duelisto");
         stmt = con.createStatement();
-        rs = stmt.executeQuery("select AImage from Achievements where AID = '" + AID + "' ");
+        rs = stmt.executeQuery("select AImage from Achievements where ACID = '" + ACID + "' ");
         if (rs.next()) {
             image = rs.getBlob(1);
             imgData = image.getBytes(1, (int) image.length());

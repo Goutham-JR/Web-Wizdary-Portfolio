@@ -914,13 +914,13 @@
                         <div class="acontainer">
                             <div class="aitems">
                                 <%
-                                    rst = stmt.executeQuery("SELECT * FROM Achievements WHERE AID='" + AID + "'");
+                                    rst = stmt.executeQuery("SELECT * FROM Achievements WHERE AID='" + AID + "' order by Date");
                                     while (rst.next()) {
 
                                 %>
                                 <div class="Achivement-left">
-                                    <img class="achivement-Images" src="ViewAchievements.jsp?AID=<%=AID%>" alt="l">
-                                    <div class="Achivement-Title"><%=rst.getString(3) %></div>
+                                    <img class="achivement-Images" src="ViewAchievements.jsp?ACID=<%=rst.getString(1)%>" alt="l">
+                                    <div class="Achivement-Title"><%=rst.getString(4)%></div>
                                 </div>
                                 <%}%>
                             </div>
@@ -945,6 +945,7 @@
                         <div class="pcontainer">
                             <div class="pitems">
                                 <div class="pcontainer-left">
+                                    <%%>
                                     <img class="Project-Images" src="Images/naturebg.jpg" alt="l">
                                     <div class="Project-Title">
                                         Hi
@@ -963,78 +964,7 @@
                                             justo ex
                                         </div>
                                     </div>
-                                    <img class="Project-Images" src="Images/naturebg.jpg" alt="l">
-                                    <div class="Project-Title">
-                                        Hi
-                                        <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
-                                            sollicitudin
-                                            nibh ac
-                                            rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius
-                                            tellus ac,
-                                            tincidunt arcu.
-                                            Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere,
-                                            libero ac scelerisque
-                                            malesuada,
-                                            justo ex
-                                        </div>
-                                    </div>
-                                    <img class="Project-Images" src="Images/naturebg.jpg" alt="l">
-                                    <div class="Project-Title">
-                                        Hi
-                                        <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
-                                            sollicitudin
-                                            nibh ac
-                                            rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius
-                                            tellus ac,
-                                            tincidunt arcu.
-                                            Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere,
-                                            libero ac scelerisque
-                                            malesuada,
-                                            justo ex
-                                        </div>
-                                    </div>
-                                    <img class="Project-Images" src="Images/naturebg.jpg" alt="l">
-                                    <div class="Project-Title">
-                                        Hi
-                                        <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
-                                            sollicitudin
-                                            nibh ac
-                                            rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius
-                                            tellus ac,
-                                            tincidunt arcu.
-                                            Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere,
-                                            libero ac scelerisque
-                                            malesuada,
-                                            justo ex
-                                        </div>
-                                    </div>
-                                    <img class="Project-Images" src="Images/naturebg.jpg" alt="l">
-                                    <div class="Project-Title">
-                                        Hi
-                                        <div class="Project-Discription">
-                                            ed laoreet lacinia sem, vitae volutpat leo. Aenean tincidunt
-                                            sollicitudin
-                                            nibh ac
-                                            rhoncus.
-                                            Integer vel suscipit purus. Quisque a elit interdum, varius
-                                            tellus ac,
-                                            tincidunt arcu.
-                                            Vivamus
-                                            in nulla in dolor aliquet tristique. Maecenas posuere,
-                                            libero ac scelerisque
-                                            malesuada,
-                                            justo ex
-                                        </div>
-                                    </div>
+                                    <%%>
                                 </div>
                             </div>
                         </div>

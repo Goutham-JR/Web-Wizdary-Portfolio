@@ -65,7 +65,7 @@ public class Achievement extends HttpServlet {
             //Checking if AID is Available Already
             String sql = "";
             PreparedStatement statement;
-            sql = "INSERT INTO Achievements(AID, AImage, Title) values (?, ?, ?)";
+            sql = "INSERT INTO Achievements(AID, AImage, Title, Date) values (?, ?, ?, NOW())";
             statement = conn.prepareStatement(sql);
             statement.setString(1, AID);
             statement.setString(3, title);
@@ -78,8 +78,9 @@ public class Achievement extends HttpServlet {
 
 
 
-
+            
             int row = statement.executeUpdate();
+            statement.executeUpdate("UPDATE profile SET Achivements=Achivements+1 WHERE AID='"+AID+"'");
             if (row > 0) {
 
                 System.out.println("image upload sucess");
