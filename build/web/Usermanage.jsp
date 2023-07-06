@@ -408,7 +408,7 @@
                         <div class="skills-container">
                             <form action="Usermanage.jsp" method="POST">
                                 <input type="text" name="skills[]" placeholder="Enter a skill">
-                                <input type="number" name="skillPercentages[]" placeholder="Percentage">                                
+                                <input type="number" name="skillPercentages[]" placeholder="Percentage"><br/>                                
                                 <input type="submit" name="Skill" value="Add">
                             </form>
                         </div>
@@ -418,7 +418,7 @@
                 <div id="ProjectShowcase" class="tabcontent">
                     <h2>Project Showcase</h2>
                     <div id="projectsContainer">
-                        <div class="project-container">
+                        <div class="project-container" align="">
                             <form action="ProjectSC" enctype="multipart/form-data" method="post">
                                 <label for="projectTitle">Title:</label>
                                 <input type="text" id="projectTitle" name="projectTitle">
@@ -488,7 +488,7 @@
                         <label for="PrivacyAddress">Address:</label>
                         <textarea name="PrivacyAddress" id="PrivacyAddress" cols="10" rows="10"></textarea>
                         <br>
-                        <input type="submit" value="Save">
+                        <input type="submit" name="AccountPrivacy" value="Save">
                     </div>
                 </form>
                 <%}%>
