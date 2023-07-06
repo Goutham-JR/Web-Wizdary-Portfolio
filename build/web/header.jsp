@@ -281,7 +281,7 @@
                         <div class="profile">
                             <img class="profile-img"
                                  src="ViewProfile.jsp?name=<%= session.getAttribute("SessionAID")%>" height="25px"
-                                 width="25px" alt="Your profile picture">
+                                 width="25px" alt="<%= session.getAttribute("SessionUser")%>">
                             <div class="dropdown-menu">
                                 <a href="Usermanage.jsp"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
                                 <a href="#"><i class="fa-solid fa-message"></i> Messages</a>

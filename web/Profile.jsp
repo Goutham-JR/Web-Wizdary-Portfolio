@@ -458,12 +458,14 @@
                 height: 300px;
                 overflow-y: scroll;
                 padding: 10px;
+                background-color: #a3a0a0;
             }
 
             #chat-form {
                 display: flex;
                 align-items: center;
                 bottom: 10px;
+                background-color: #a3a0a0;
             }
 
             #chat-input {
@@ -473,8 +475,15 @@
                 border-radius: 4px;
                 padding: 10px 0px;
                 box-sizing: border-box;
-                text-align: center;
+                background-color: grey;
+                color:white;
             }
+
+            #chat-input::placeholder {
+                color: yellow;
+                opacity: 1; /* Firefox */
+            }
+
 
             #chat-input:focus {
                 outline: none;
@@ -483,13 +492,13 @@
             }
 
 
-            #chat-form button {
+            .sendmessagebtn {
                 border-radius: 8px;
                 position: relative;
                 left: -10px;
             }
 
-            #chat-form button {
+            .sendmessagebtn {
                 color: var(--Color-Btn);
                 cursor: pointer;
                 text-align: center;
@@ -512,7 +521,7 @@
                 position: relative;
             }
 
-            #chat-form button:hover {
+            .sendmessagebtn:hover {
                 border: 1px solid;
                 box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
                 outline-color: rgba(255, 255, 255, 0);
@@ -520,7 +529,7 @@
                 text-shadow: 1px 1px 2px #427388;
             }
 
-            #chat-form button:hover:after {
+            .sendmessagebtn:hover:after {
                 left: 120%;
                 transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
             }
@@ -714,6 +723,7 @@
 
             .red-text {
                 color: red;
+                background-color: orange;
                 float: right;
             }
 
@@ -721,6 +731,104 @@
                 color: greenyellow;
                 float: left;
                 display: block;
+            }
+
+            .message-blue {
+                position: relative;
+                margin-left: 20px;
+                margin-bottom: 10px;
+                padding: 10px;
+                background-color: var(--Color-Background-Color);
+                width: 200px;
+                height: 50px;
+                text-align: left;
+                font: 400 .9em 'Open Sans', sans-serif;
+                border: 1px solid #97C6E3;
+                border-radius: 10px;
+                color: #FFF;
+            }
+
+            .message-orange {
+                position: relative;
+                margin-bottom: 10px;
+                margin-left: calc(100% - 240px);
+                padding: 10px;
+                background-color: var(--Color-Btn);
+                width: 200px;
+                height: 50px;
+                text-align: left;
+                font: 400 .9em 'Open Sans', sans-serif;
+                border: 1px solid #dfd087;
+                border-radius: 10px;
+            }
+
+            .message-content {
+                padding: 0;
+                margin: 0;
+            }
+
+            .message-timestamp-right {
+                position: absolute;
+                font-size: .85em;
+                font-weight: 300;
+                bottom: 5px;
+                right: 5px;
+            }
+
+            .message-timestamp-left {
+                position: absolute;
+                font-size: .85em;
+                font-weight: 300;
+                bottom: 5px;
+                left: 5px;
+            }
+
+            .message-blue:after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-top: 15px solid var(--Color-Background-Color);
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                top: 0;
+                left: -15px;
+            }
+
+            .message-blue:before {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-top: 17px solid var(--Color-Background-Color);
+                border-left: 16px solid transparent;
+                border-right: 16px solid transparent;
+                top: -1px;
+                left: -17px;
+            }
+
+            .message-orange:after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-bottom: 15px solid var(--Color-Btn);
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                bottom: 0;
+                right: -15px;
+            }
+
+            .message-orange:before {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-bottom: 17px solid var(--Color-Btn);
+                border-left: 16px solid transparent;
+                border-right: 16px solid transparent;
+                bottom: -1px;
+                right: -17px;
             }
         </style>
     </head>
@@ -782,7 +890,7 @@
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                
+
         %>
         <br />
         <br />
@@ -937,7 +1045,7 @@
                                                                 required></label>
                                 <label for="Phone Number">Phone Number<input type="Text" name="PhoneNo" placeholder="Enter the Phone Number" required></label>
                                 <label for="Message">Message <input type="text" name="Message" placeholder="Enter the Message" required></label>
-                                <input type="hidden" name="AID" class="contact-submitBtn" value="<%=AID %>">
+                                <input type="hidden" name="AID" class="contact-submitBtn" value="<%=AID%>">
                                 <input type="submit" name="Contact" class="contact-submitBtn" value="Submit">
                             </form>
                         </div>
@@ -986,15 +1094,17 @@
 
         <div id="chatPopup">
             <div id="chatTitle">
-                <h3>Name <span style="color:greenyellow;">Online</span></h3>
+                <h3><%=PName%></h3>
                 <button onclick="closeChat()">End chat</button>
             </div>
-            <div id="messages">
-
+            <div id="messages">               
             </div>
-            <form id="chat-form" action="">
-                <input type="text" id="chat-input" placeholder="Type your message here">
-                <button type="submit" id="send-button">Send<i class="fa fa-send"></i></button>
+            <form action="sendmessage.jsp" method="POST"  target="_blank">
+                <div id="chat-form">
+                    <input type="text" id="chat-input" name="message" placeholder="Type your message here">
+                    <input type="hidden" name="AID" value="<%=AID%>">
+                    <button type="submit" class="sendmessagebtn" id="send-button" onclick="">Send<i class="fa fa-send"></i></button>
+                </div>
             </form>
         </div>
     </main>
@@ -1035,8 +1145,18 @@
             document.documentElement.scrollTop = 0;
         }
 
+       
+ 
+        var sendmessage = document.getElementById("send-button");
+        var message = document.getElementById("chat-input");
 
-
+        sendmessage.addEventListener("click", function() {
+            setTimeout(function() {
+            var messages = document.getElementById("messages");
+                message.value = "";
+                messages.scrollTop = messages.scrollHeight;
+            }, 500); // Delay of 0.5 seconds (500 milliseconds)
+        });
 
 
 
@@ -1050,16 +1170,21 @@
             document.getElementById("chatPopup").style.display = "none";
         }
 
-
-        function refreshDiv() {
-            var divToRefresh = document.getElementById("messages");
-            divToRefresh.innerHTML = ""; // Clear the content of the div
-            var newContent = '<';
-            divToRefresh.innerHTML = newContent;
-
+      function refreshDiv() {
+    var divToRefresh = document.getElementById("messages");
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "fetch_messages.jsp?AID=<%=AID%>", true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            divToRefresh.innerHTML = xhr.responseText;
         }
+    };
+    xhr.send();
+}
 
-        setInterval(refreshDiv, 3000); // Refresh every 5 seconds
+refreshDiv();
+setInterval(refreshDiv, 1000);
+
     </script>
 
     <%} else {%>
