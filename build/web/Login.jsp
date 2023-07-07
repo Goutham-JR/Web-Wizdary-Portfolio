@@ -235,7 +235,7 @@
                     <label for="rememberpsd"><input type="checkbox" name="rememberpsd"> Remember me</label>
                     <a href="#">Forgot Password?</a>
                     <input type="submit" value="Login">
-                    <a href="SignUp.jsp">Don't have an account? Click here</a>
+                    <a href="Loading.jsp?URL=SignUp.jsp">Don't have an account? Click here</a>
                 </form>
             </div>
         </div>

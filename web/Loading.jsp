@@ -96,18 +96,12 @@
             100% { opacity: 0; }
             }
         </style>
-        <script>
-            // JavaScript to add the fade-out class after 2 seconds
-            setTimeout(function() {
-                var bodyID = document.getElementById("bodyID");
-                bodyID.classList.add('fade-out');                
-            }, 4000);
-            setTimeout(function() {
-                location.href = "Home.jsp";
-            }, 5000);
-        </script>
+        
     </head>
     <body>
+        <%
+            String URL = request.getParameter("URL");
+        %>
         <div id="bodyID">
             <p>l</p>
             <p>o</p>
@@ -117,5 +111,15 @@
             <p>n</p>
             <p>g</p>
         </div>
+        <script>
+            // JavaScript to add the fade-out class after 2 seconds
+            setTimeout(function() {
+                var bodyID = document.getElementById("bodyID");
+                bodyID.classList.add('fade-out');                
+            }, 3000);
+            setTimeout(function() {
+                location.href = "<%=URL%>";
+            }, 4000);
+        </script>
     </body>
 </html>

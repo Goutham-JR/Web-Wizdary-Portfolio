@@ -311,7 +311,7 @@
                 display: none;
                 position: fixed;
                 bottom: 20px;
-                right: 30px;
+                left: 30px;
                 z-index: 99;
                 font-size: 18px;
                 border: none;
@@ -1099,13 +1099,11 @@
             </div>
             <div id="messages">               
             </div>
-            <form action="sendmessage.jsp" method="POST"  target="_blank">
                 <div id="chat-form">
                     <input type="text" id="chat-input" name="message" placeholder="Type your message here">
                     <input type="hidden" name="AID" value="<%=AID%>">
-                    <button type="submit" class="sendmessagebtn" id="send-button" onclick="">Send<i class="fa fa-send"></i></button>
+                    <button type="submit" class="sendmessagebtn" id="send-button" onclick="sendMessage()">Send<i class="fa fa-send"></i></button>
                 </div>
-            </form>
         </div>
     </main>
     <script>
@@ -1169,6 +1167,18 @@
         function closeChat() {
             document.getElementById("chatPopup").style.display = "none";
         }
+        
+        function sendMessage() {
+    var message = document.getElementById("chat-input").value;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "sendmessage.jsp?AID=<%=AID%>&message="+message+"", true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            divToRefresh.innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send();
+}
 
       function refreshDiv() {
     var divToRefresh = document.getElementById("messages");

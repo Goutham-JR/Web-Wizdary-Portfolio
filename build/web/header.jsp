@@ -269,10 +269,9 @@
                             </div>
                         </form>
                     </li>
-                    <li><a href="index.jsp"><i class="fa-solid fa-house"></i> Home</a></li>
-                    <li><a href="Profile.jsp?AID=<%= session.getAttribute("SessionAID")%>"><i class="fa-solid fa-user"></i> Profile</a></li>
-                    <li><a href="Message.jsp"><i class="fa-solid fa-message"></i> Message</a></li>
-                    <li><a href="Blog.jsp"><i class="fa-solid fa-blog"></i> Blog</a></li>
+                    <li><a href="Loading.jsp?URL=Home.jsp"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li><a href="Loading.jsp?URL=Profile.jsp?AID=<%= session.getAttribute("SessionAID")%>"><i class="fa-solid fa-user"></i> Profile</a></li>
+                    <li><a href="Loading.jsp?URL=Blog.jsp"><i class="fa-solid fa-blog"></i> Blog</a></li>
                     <li><a href="#"><i class="fa-solid fa-address-book"></i>  Contact Us</a></li>
                     <%
                         if (session.getAttribute("SessionUser") != null) {
@@ -283,10 +282,10 @@
                                  src="ViewProfile.jsp?name=<%= session.getAttribute("SessionAID")%>" height="25px"
                                  width="25px" alt="<%= session.getAttribute("SessionUser")%>">
                             <div class="dropdown-menu">
-                                <a href="Usermanage.jsp"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
-                                <a href="#"><i class="fa-solid fa-message"></i> Messages</a>
-                                <a href="#"><i class="fa-solid fa-bell"></i> Notification</a>
-                                <a href="#"><i class="fa-solid fa-chart-line"></i>  Admin Dashboard</a>
+                                <a href="Loading.jsp?URL=Usermanage.jsp"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+                                <a href="Loading.jsp?URL=Message.jsp"><i class="fa-solid fa-message"></i> Messages</a>
+                                <a href="Loading.jsp?URL=Notification.jsp"><i class="fa-solid fa-bell"></i> Notification</a>
+                                <a href="Loading.jsp?URL=AdminManagement.jsp#"><i class="fa-solid fa-chart-line"></i> Admin Dashboard</a>
                                 <a href="#"><i class="fa-solid fa-flag"></i> Report</a>
                                 <a href="logout.jsp"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                             </div>
@@ -297,13 +296,12 @@
                     </li>
                     <%} else {
                     %>
-                    <li><form action="SignUp.jsp">
-                            <button class="Headerbtn" type="submit">Sign Up</button>
-                        </form>
+                    <li>
+                            <button class="Headerbtn" type="submit" onclick="location.href='Loading.jsp?URL=SignUp.jsp';">Sign Up</button>
+                       
                     </li>
-                    <li><form action="Login.jsp">
-                            <button class="Headerbtn" type="submit">Login</button>
-                        </form>
+                    <li>
+                        <button class="Headerbtn" type="submit" onclick="location.href='Loading.jsp?URL=Login.jsp';">Login</button>
                     </li>
                     <% }%>
                 </ul>

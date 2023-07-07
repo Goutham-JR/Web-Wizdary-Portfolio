@@ -241,7 +241,7 @@
                     <label for="Phone Number">Phone Number<input type="Text" name="PhoneNo" placeholder="Enter the Phone Number"
                                                                  required></label> 
                     <input type="submit" value="Sign up">
-                    <a href="Login.jsp">Have an account? Login here</a>
+                    <a href="Loading.jsp?URL=Login.jsp">Have an account? Login here</a>
                 </form>
             </div>
         </div>
