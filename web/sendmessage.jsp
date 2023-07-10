@@ -5,6 +5,7 @@
             String sender = session.getAttribute("SessionAID").toString();
             String receiver = request.getParameter("AID");
             String message = request.getParameter("message");
+            message = message.replace("'", "\\'");
             String sql = "INSERT INTO message(sender, receiver, message, date) VALUES ('"+sender+"', '"+receiver+"', '"+message+"', NOW())";
             stmt.executeUpdate(sql);
     %>      

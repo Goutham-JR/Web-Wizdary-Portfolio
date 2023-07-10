@@ -48,8 +48,7 @@
         }
     </style>
 </head>
-<body>
-    <br><br><br><br><br><br>
+<body>    
     <h1>Notifications</h1>
 
     <div class="notifications-container">

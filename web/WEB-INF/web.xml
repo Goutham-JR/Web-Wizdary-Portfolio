@@ -17,6 +17,10 @@
         <servlet-class>network.UploadCV</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DownloadCV</servlet-name>
+        <servlet-class>network.DownloadCV</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Achievement</servlet-name>
         <servlet-class>network.Achievement</servlet-class>
     </servlet>
@@ -41,6 +45,10 @@
         <url-pattern>/UploadCV</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>DownloadCV</servlet-name>
+        <url-pattern>/DownloadCV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>Achievement</servlet-name>
         <url-pattern>/Achievement</url-pattern>
     </servlet-mapping>
@@ -48,6 +56,10 @@
         <servlet-name>ProjectSC</servlet-name>
         <url-pattern>/ProjectSC</url-pattern>
     </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404Error.jsp</location>
+    </error-page>
     <session-config>
         <session-timeout>
             30

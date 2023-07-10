@@ -34,6 +34,7 @@ public class Recommend extends HttpServlet {
         HttpSession session = request.getSession(false);
         String AID = "";
         String bio = request.getParameter("bio");
+        bio = bio.replace("'", "\\'");
         String facebook = request.getParameter("facebook");
         String LinkedIn = request.getParameter("LinkedIn");
         String instagram = request.getParameter("instagram");

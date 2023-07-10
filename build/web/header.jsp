@@ -272,7 +272,6 @@
                     <li><a href="Loading.jsp?URL=Home.jsp"><i class="fa-solid fa-house"></i> Home</a></li>
                     <li><a href="Loading.jsp?URL=Profile.jsp?AID=<%= session.getAttribute("SessionAID")%>"><i class="fa-solid fa-user"></i> Profile</a></li>
                     <li><a href="Loading.jsp?URL=Blog.jsp"><i class="fa-solid fa-blog"></i> Blog</a></li>
-                    <li><a href="#"><i class="fa-solid fa-address-book"></i>  Contact Us</a></li>
                     <%
                         if (session.getAttribute("SessionUser") != null) {
                     %>
@@ -284,15 +283,15 @@
                             <div class="dropdown-menu">
                                 <a href="Loading.jsp?URL=Usermanage.jsp"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
                                 <a href="Loading.jsp?URL=Message.jsp"><i class="fa-solid fa-message"></i> Messages</a>
-                                <a href="Loading.jsp?URL=Notification.jsp"><i class="fa-solid fa-bell"></i> Notification</a>
-                                <a href="Loading.jsp?URL=AdminManagement.jsp#"><i class="fa-solid fa-chart-line"></i> Admin Dashboard</a>
-                                <a href="#"><i class="fa-solid fa-flag"></i> Report</a>
+                                <%-- <a href="Loading.jsp?URL=Notification.jsp"><i class="fa-solid fa-bell"></i> Notification</a>--%>
+                                <% if (session.getAttribute("SessionGrade").equals("Admin")) {%><a href="Loading.jsp?URL=AdminManagement.jsp#"><i class="fa-solid fa-chart-line"></i> Admin Dashboard</a><%}%>
+                                <a href="Loading.jsp?URL=Report.jsp#"><i class="fa-solid fa-flag"></i> Report</a>
                                 <a href="logout.jsp"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                             </div>
                         </div>
                     </li>
                     <li class="dropdown">
-                        <h4 class="sessionuser"><%= session.getAttribute("SessionUser")%> <i class="uil uil-comment-verify" style="color: yellow;"></i></h4>
+                        <h4 class="sessionuser"><%= session.getAttribute("SessionUser")%> <% if (session.getAttribute("SessionGrade").equals("Verified")) {%><i class="uil uil-comment-verify" style="color: yellow;"></i><%}%></h4>
                     </li>
                     <%} else {
                     %>
@@ -328,6 +327,7 @@
                 });
             });
         </script>
+        <br><br><br><br><br><br>
     </body>
 
 </html>

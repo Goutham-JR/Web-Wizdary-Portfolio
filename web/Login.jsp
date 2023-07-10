@@ -201,12 +201,6 @@
                     session.setAttribute("SessionUser", username);
                     session.setAttribute("SessionAID",rst.getString("AID"));
                     session.setAttribute("SessionGrade", rst.getString(8));
-                    System.out.println(rst.getString(2));
-                    //TODO : CHECK THE ACCOUNTYPE HERE UPDATE
-//                    if (rst.getString(3).equals("Goutham"))
-//                        response.sendRedirect("index.jsp");
-//                    else
-//                        response.sendRedirect("SignUp.jsp");
                       response.sendRedirect("index.jsp");
                 } else {
                     //TODO : ADD THE MESSAGE HERE

@@ -34,7 +34,9 @@ public class ProjectSC extends HttpServlet {
         HttpSession session = request.getSession(false);
         String AID = "";
         String title = request.getParameter("projectTitle");
+        title = title.replace("'", "\\'");
         String Description = request.getParameter("projectDescription");
+        Description = Description.replace("'", "\\'");
         InputStream inputStream = null;
         Part filePart = request.getPart("projectImage");
         if (filePart != null) {
@@ -82,7 +84,7 @@ public class ProjectSC extends HttpServlet {
 
             
             int row = statement.executeUpdate();
-            statement.executeUpdate("UPDATE profile SET Achivements=Achivements+1 WHERE AID='"+AID+"'");
+            statement.executeUpdate("UPDATE profile SET CompletedProjects=CompletedProjects+1 WHERE AID='"+AID+"'");
             if (row > 0) {
 
                 System.out.println("image upload sucess");

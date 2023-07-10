@@ -337,12 +337,7 @@
         }
     </style>
 
-    <body>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+    <body>        
     <main>
         <div class="container">
             <div class="text">

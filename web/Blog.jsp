@@ -92,7 +92,7 @@
     </head>
 
     <body>
-        <a href="index.jsp" id="gotopBtn" title="Go to top">Home</a>
+        <a href="Loading.jsp?URL=Home.jsp" id="gotopBtn" title="Go to top">Home</a>
        <%
             rst = stmt.executeQuery("SELECT * FROM Blog ORDER BY Date DESC");
             while (rst.next()) {

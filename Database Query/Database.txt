@@ -1,5 +1,7 @@
 CREATE DATABASE Portfolio;
 
+Use Portfolio;
+
 CREATE TABLE Account (
     AID int NOT NULL AUTO_INCREMENT,
     Name varchar(255),
@@ -17,7 +19,7 @@ CREATE TABLE Account (
 CREATE TABLE Profile (
     AID int,
     PImage LongBlob,
-    Bio varchar(255),
+    Bio text,
     Instagram varchar(255),
     Facebook varchar(255),
     LinkedIn varchar(255),
@@ -79,12 +81,14 @@ CREATE TABLE message (
 CREATE TABLE Verification (
     AID int,
     Username varchar(25),
-    Date Datetime    
+    Date date    
 );
 
 CREATE TABLE UserCV (
     AID int,
-    File longblob    
+    File longblob,
+    FileName varchar(255),
+    FileType varchar(255)   
 );
 
 CREATE TABLE ContactUs(
@@ -96,19 +100,13 @@ CREATE TABLE ContactUs(
     Status varchar(20)
 );
 
-select  
-    PID,
-    AID,
-    Bio,
-    Instagram,
-    Facebook,
-    LinkedIn,
-    City,
-    Residence,
-    Experience,
-    CompletedProjects,
-    ReviewdCustomers,
-    Achivements
-   from profile;
+CREATE TABLE Report(
+    AID int,
+    Name varchar(50),
+    Email varchar(50),
+    Message varchar(255),
+    Date date
+);
+
 
 

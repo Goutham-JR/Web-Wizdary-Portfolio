@@ -892,11 +892,6 @@
                 }
 
         %>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <button onclick="topFunction()" id="gotopBtn" title="Go to top">Top</button>
         <div class="profile-banner">
             <img src="Images/naturebg.jpg" alt="Profile-banner" class="Profile-banner">
@@ -1015,7 +1010,7 @@
                         </div>
 
                         <div class="services">
-                            <button>Download CV <i class="fa fa-download"></i></button>
+                            <button onclick="window.location.href='DownloadCV?AID=<%= AID %>'">Download CV <i class="fa fa-download"></i></button>
                         </div>
                     </div>
                     <div id="Achievements" class="tabcontent">
@@ -1074,7 +1069,7 @@
                     <div id="Blog" class="tabcontent">
                         <h1>BLOG</h1>
                         <%
-                            rst = stmt.executeQuery("SELECT * FROM Blog WHERE AID='" + AID + "' order by Date");
+                            rst = stmt.executeQuery("SELECT * FROM Blog WHERE AID='" + AID + "' order by Date DESC");
                             while (rst.next()) {
                         %>
                         <article>
@@ -1200,7 +1195,7 @@ setInterval(refreshDiv, 1000);
     <%} else {%>
     <script>
         alert("Please login first.");
-        window.location.href = "Login.jsp";
+        window.location.href = "Loading.jsp?URL=Login.jsp";
     </script>
     <%        }%>
 
