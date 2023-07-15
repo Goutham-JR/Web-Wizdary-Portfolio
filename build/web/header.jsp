@@ -257,7 +257,7 @@
     <body>
 
         <header>
-            <img class="logo" src="https://www.nvidia.com/content/dam/en-zz/Solutions/about-nvidia/logo-and-brand/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png">
+            <img class="logo" src="Images/Logo.png">
 
             <nav>
                 <ul>

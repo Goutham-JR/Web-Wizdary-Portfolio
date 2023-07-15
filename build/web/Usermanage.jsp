@@ -70,6 +70,7 @@
                 width: 40px;
                 height: 40px;
                 margin-left: 10px;
+                padding-top: 40px;
             }
 
             .navname .sessionuser h2 {
@@ -78,6 +79,7 @@
                 padding-left: 10px;
                 padding-right: 30px;
                 color: white;
+                padding-top: 40px;
             }
 
 
@@ -95,7 +97,11 @@
 
             .toplogo {
                 height: 10%;
-                background-color: black;
+                padding-bottom: 30px;
+            }
+            .toplogo img{
+                width: 300px;
+                height: 100px;                
             }
 
             .menu-heading {
@@ -263,7 +269,7 @@
                 border: 1px solid #ddd;
                 padding: 8px;
             }
-             #customtable td a{
+            #customtable td a{
                 text-decoration: none;
                 color: var(--Color-Btn);
             }
@@ -347,7 +353,7 @@
                 font-size: 26px;
                 color: #333;
             }
-        
+
             input[type=file]::file-selector-button {
                 margin-right: 20px;
                 border: none;
@@ -367,13 +373,14 @@
 
     <body>
         <%
-            String AID = session.getAttribute("SessionAID").toString();            
+            String AID = session.getAttribute("SessionAID").toString();                
         %>
+        
         <div class="main">
-            
+
             <div class="center">
                 <div class="leftdash">
-                    <div class="toplogo"></div>
+                    <div class="toplogo"><img src="Images/Logo.png"><br></div>
                     <div class="menu-heading">
                         <div class="menu-option">
                             <a href="#" onclick="openPage(event, 'Profile')"><i class="fa-solid fa-user"></i> Profile</a>
@@ -771,7 +778,7 @@
             blogPreview.appendChild(contentElement);
         }
     </script>
-     <%@include file="footer.jsp" %>
+    <%@include file="footer.jsp" %>
 </body>
 
 </html>

@@ -4,89 +4,99 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
-            :root {
-                --effect: hover 1s linear infinite;
+            * {
+                border: 0;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
             }
-            *{
-                margin:0;
+
+            :root {
+                --hue: 60; /* Change the hue value to 60 for yellow */
+                --bg: hsl(var(--hue),10%,90%);
+                --fg: hsl(var(--hue),10%,10%);
+                font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
             }
 
             body {
-                display: flex;
-                width: 100vw;
+                background: var(--bg);
+                color: var(--fg);
+                font: 1em/1.5 sans-serif;
                 height: 100vh;
-                background: black;
-                align-items: center;
-                justify-content: center;
+                display: grid;
+                place-items: center;
             }
 
-            div {
-                text-align: center;
+            .pl {
+                display: block;
+                width: 6.25em;
+                height: 6.25em;
             }
 
-            p {
-                display: inline-block;
-                text-transform: uppercase;
-                text-align: center;
-                font-size: 4em;
-                font-family: arial;
-                font-weight: 600;
-                transform: scale(.5);
-                color: #121212;
-                -webkit-text-stroke: 2px gray;
+            .pl__ring,
+            .pl__ball {
+                animation: ring 2s ease-out infinite;
             }
 
-            p:nth-child(1) {
-                animation: var(--effect);
+            .pl__ball {
+                animation-name: ball;
             }
 
-            p:nth-child(2) {
-                animation: var(--effect) .125s;
+            /* Dark theme */
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --bg: hsl(var(--hue),10%,10%);
+                    --fg: hsl(var(--hue),10%,90%);
+                }
             }
 
-            p:nth-child(3) {
-                animation: var(--effect) .25s;
+            /* Animation */
+            @keyframes ring {
+                from {
+                stroke-dasharray: 0 257 0 0 1 0 0 258;
             }
 
-            p:nth-child(4) {
-                animation: var(--effect) .375s;
+            25% {
+                stroke-dasharray: 0 0 0 0 257 0 258 0;
             }
 
-            p:nth-child(5) {
-                animation: var(--effect) .5s;
+            50%,
+            to {
+                stroke-dasharray: 0 0 0 0 0 515 0 0;
+            }
             }
 
-            p:nth-child(6) {
-                animation: var(--effect) .675s;
+            @keyframes ball {
+                from,
+                50% {
+                animation-timing-function: ease-in;
+                stroke-dashoffset: 1;
             }
 
-            p:nth-child(7) {
-                animation: var(--effect) .75s;
+            64% {
+                animation-timing-function: ease-in;
+                stroke-dashoffset: -109;
             }
 
-            @keyframes hover {
-                0% {
-                transform: scale(.5);
-                color: #121212;
-                -webkit-text-stroke: 2px gray;
+            78% {
+                animation-timing-function: ease-in;
+                stroke-dashoffset: -145;
             }
 
-            20% {
-                transform: scale(1);
-                color: pink;
-                -webkit-text-stroke: 3px red;
-                filter: drop-shadow(0 0 1px black)drop-shadow(0 0 1px black)drop-shadow(0 0 3px red)drop-shadow(0 0 5px red)hue-rotate(10turn);
+            92% {
+                animation-timing-function: ease-in;
+                stroke-dashoffset: -157;
             }
 
-            50% {
-                transform: scale(.5);
-                color: #121212;
-                -webkit-text-stroke: 2px gray;
+            57%,
+            71%,
+            85%,
+            99%,
+            to {
+                animation-timing-function: ease-out;
+                stroke-dashoffset: -163;
             }
-
-
-            }
-
+            } 
             .fade-out {
                 animation: fadeOut 1s ease-in-out forwards;
             }
@@ -95,27 +105,40 @@
                 0% { opacity: 1; }
             100% { opacity: 0; }
             }
+
+            .logo{
+                
+                width: 200px;
+                height: 100px;
+            }
         </style>
         <script>
             // JavaScript to add the fade-out class after 2 seconds
             setTimeout(function() {
                 var bodyID = document.getElementById("bodyID");
                 bodyID.classList.add('fade-out');                
-            }, 4000);
+            }, 5000);
             setTimeout(function() {
                 location.href = "Home.jsp";
-            }, 5000);
+            }, 6000);
         </script>
     </head>
-    <body>
-        <div id="bodyID">
-            <p>l</p>
-            <p>o</p>
-            <p>a</p>
-            <p>d</p>
-            <p>i</p>
-            <p>n</p>
-            <p>g</p>
-        </div>
+    <body id="bodyID">
+        <img class="logo" src="Images/Logo.png">
+        <svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+        <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+        <stop offset="0%" stop-color="yellow" /> <!-- Change the stop-color to yellow -->
+        <stop offset="100%" stop-color="yellow" /> <!-- Change the stop-color to yellow -->
+        </linearGradient>
+        <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="yellow" /> <!-- Change the stop-color to yellow -->
+        <stop offset="100%" stop-color="yellow" /> <!-- Change the stop-color to yellow -->
+        </linearGradient>
+        </defs>
+        <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
+        <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
+        </svg>
+
     </body>
 </html>

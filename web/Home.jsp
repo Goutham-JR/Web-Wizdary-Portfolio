@@ -342,7 +342,7 @@
         <div class="container">
             <div class="text">
                 <p>Konnichiwa flok's, Welcome <br> to
-                <h1 id="welcome-heading">Web Wizdary &#128155;</h1>
+                <h1 id="welcome-heading">Web Wizardry &#128155;</h1>
                 </p>
                 <div class="impossible" id="impossible" align="center">
                     <h1><span>I</span>M<span id="myText">POSSIBLE?</span></h1>

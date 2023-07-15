@@ -94,7 +94,11 @@
 
             .toplogo {
                 height: 10%;
-                background-color: black;
+                padding-bottom: 30px;
+            }
+            .toplogo img{
+                width: 300px;
+                height: 100px;                
             }
 
             .menu-heading {
@@ -353,7 +357,7 @@
         <div class="main">           
             <div class="center">
                 <div class="leftdash">
-                    <div class="toplogo"></div>
+                    <div class="toplogo"><img src="Images/Logo.png"></div>
                     <div class="menu-heading">
                         <div class="menu-option">
                             <a href="#" onclick="openPage(event, 'Dashboard')"><i class="fa-solid fa-chart-line"></i> Dashboard</a>

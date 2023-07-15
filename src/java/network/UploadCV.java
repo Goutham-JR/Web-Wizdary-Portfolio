@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @WebServlet("/UploadCV")
-@MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig(maxFileSize = 1073741823)
 public class UploadCV extends HttpServlet {
 
     private String dbURL = "jdbc:mysql://localhost:3306/portfolio";
