@@ -7,14 +7,13 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><%= Title%> - LOGIN</title>
+        <title><%= Title%> - SIGNUP</title>
         <style>
             :root {
                 --Color-Btn: rgb(255, 255, 0);
                 --Color-input-border: #fffb00;
                 --Color-Btn-Outlinecolor: rgba(255, 255, 255, 0.5);
             }
-
 
             * {
                 margin: 0 0;
@@ -73,7 +72,8 @@
 
 
             input[type="text"],
-            input[type="password"] {
+            input[type="password"],
+            input[type="email"] {
                 width: 100%;
                 padding: 10px;
                 margin-bottom: 10px;
@@ -84,14 +84,11 @@
             }
 
             input[type="text"]:focus,
-            input[type="password"]:focus {
+            input[type="password"]:focus,
+            input[type="email"]:focus {
                 outline: none;
                 border-color: var(--Color-input-border);
                 box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-            }
-
-            .form-items input[type="checkbox"] {
-                margin-bottom: 10px;
             }
 
             .form-items a {
@@ -193,44 +190,49 @@
     <body>
         <%
             if (request.getMethod().equalsIgnoreCase("POST")) {
-                String username = request.getParameter("Username");
-                String password = request.getParameter("Password");
+                String Name = request.getParameter("Name");
+                String SUsername = request.getParameter("Username");
+                String Password = request.getParameter("Password");
+                String CPassword = request.getParameter("CPassword");
+                String PhoneNo = request.getParameter("PhoneNo");
+                String Email = request.getParameter("Email");
+                
+                    // Prepare the query
+                    String query = "SELECT * FROM Account WHERE Username = ?";
+                    PreparedStatement pstmt = con.prepareStatement(query);
+                    pstmt.setString(1, SUsername);
+                    rst = pstmt.executeQuery();
 
-                rst = stmt.executeQuery("Select * from Account where username='" + username + "' and password='" + password + "'");
-                if(rst.next()) {
-                    session.setAttribute("SessionUser", username);
-                    session.setAttribute("SessionAID",rst.getString("AID"));
-                    session.setAttribute("SessionGrade", rst.getString(8));
-                    out.print("<script>alert('Login Successful!');</script>");
-    out.print("<script>location.href='Loading.jsp?URL=Home.jsp';</script>");
-                } else {
-                   out.print("<script>alert('Invalid credential.');</script>");
-    out.print("<script>location.href='Loading.jsp?URL=Login.jsp';</script>");
-                }
-                                       
+                    // Check if a result exists
+                    if (rst.next()) {
+                       
+        %>
+        <script>
+            alert("Username already exists");
+        </script>
+        <%        } else {
+                            stmt.executeUpdate("INSERT INTO Account(Name, Username, Password, Email, PhoneNo, AccountType) VALUES ('" + Name + "','" + SUsername + "','" + Password + "','" + Email + "','" + PhoneNo + "', 1)");
+                            response.sendRedirect("index.jsp");
+                                               }               
             }
-
         %>
         <div class="rain-container" id="rainContainer"></div>
         <div class="form-border">
             <div class="form-items">
-                <form action="Login.jsp" method="POST">
+                <form action="SignUp.jsp" method="POST">
                     <div class="Login-heading">
-                        <span style="--i:1">L</span>
-                        <span style="--i:2">o</span>
-                        <span style="--i:3">G</span>
-                        <span style="--i:4">I</span>
-                        <span style="--i:5">N</span>
+                        <span style="--i:1">F</span>
+                        <span style="--i:2">O</span>
+                        <span style="--i:3">R</span>
+                        <span style="--i:4">G</span>
+                        <span style="--i:5">O</span>
+                        <span style="--i:6">T</span>
                     </div>
-                    <br>
-                    <label for="Username">Username <input type="text" name="Username" placeholder="Enter the Username"
-                                                          required></label>
-                    <label for="Password">Password <input type="Password" name="Password" placeholder="Enter the Password"
-                                                          required></label>
-                    <label for="rememberpsd"><input type="checkbox" name="rememberpsd"> Remember me</label>
-                    <a href="#">Forgot Password?</a>
-                    <input type="submit" value="Login">
-                    <a href="Loading.jsp?URL=SignUp.jsp">Don't have an account? Click here</a>
+                    <br>                                       
+                    <label for="Email">Email <input type="email" name="Email" placeholder="Enter the Email"
+                                                    required></label>                             
+                    <input type="submit" value="Send">
+                    <a href="Loading.jsp?URL=Login.jsp">Have an account? Login here</a>
                 </form>
             </div>
         </div>

@@ -38,9 +38,11 @@ CREATE TABLE Languages (
 );
 
 CREATE TABLE Skills (
+    SKID int NOT NULL AUTO_INCREMENT,
     AID int,
     Skills varchar(255),
-    Percentage int
+    Percentage int,
+    PRIMARY KEY (SKID)
 );
 
 CREATE TABLE Achievements (

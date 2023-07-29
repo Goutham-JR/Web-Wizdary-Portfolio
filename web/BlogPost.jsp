@@ -6,5 +6,5 @@
     String blogContent = request.getParameter("blogContent");
     blogContent = blogContent.replace("'", "\\'");
     stmt.executeUpdate("INSERT INTO blog(AID, Title, Description, Date)values('" + AID + "', '" + blogTitle + "', '" + blogContent + "', NOW())");
-    response.sendRedirect("Loading.jsp?URL=Usermanage.jsp");
+    response.sendRedirect("Loading.jsp?URL=Usermanage.jsp?msg=success");
 %>

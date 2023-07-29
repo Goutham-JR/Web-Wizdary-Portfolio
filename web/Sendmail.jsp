@@ -1,4 +1,4 @@
-<%@page import="network.mail"%>
+ <%@page import="network.mail"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

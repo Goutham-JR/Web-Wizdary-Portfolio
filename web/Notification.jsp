@@ -53,8 +53,8 @@
 
     <div class="notifications-container">
         <div class="notification success">Congrats! Your account is verified.</div>
-        <div class="notification info">User messaged you.</div>
-        <div class="notification warning">User sent his contacts to you.</div>
+        <div class="notification info">Admin messaged you.</div>
+        <div class="notification warning">Someone sent his contacts to you.</div>
         <!-- Add more notifications here -->
     </div>
 </body>

@@ -373,9 +373,9 @@
 
     <body>
         <%
-            String AID = session.getAttribute("SessionAID").toString();                
+            String AID = session.getAttribute("SessionAID").toString();
         %>
-        
+
         <div class="main">
 
             <div class="center">
@@ -402,6 +402,9 @@
                         <div class="menu-option">
                             <a href="#" onclick="openPage(event, 'Skills')"><i class="fa-solid fa-bolt"></i> Skills</a>
                         </div>
+                        <div class="menu-option">
+                            <a href="#" onclick="openPage(event, 'addlanguage')"><i class="fa-solid fa-language"></i> Language</a>
+                        </div>
                     </div>
                     <div class="menu-heading">
                         <h3><i class="fa-solid fa-gear"></i> Setting</h3>
@@ -411,6 +414,9 @@
                         </div>
                         <div class="menu-option">
                             <a href="#" onclick="openPage(event, 'Verify')"><i class="uil uil-comment-verify" ></i> Verify Account</a>
+                        </div>
+                        <div class="menu-option">
+                            <a href="#" onclick="openPage(event, 'Contactyou')"><i class="fa-solid fa-phone"></i> Contact you</a>
                         </div>
                     </div>
                     <div class="menu-heading">         
@@ -447,7 +453,7 @@
                                     <legend>Profile Information</legend>
                                     <img src="ViewProfile.jsp?name=<%=AID%>" width="150px" height="150px" style="position: relative;left:120px; bottom:80px; background-color: rebeccapurple;"/>
 
-                                    <label for="User" style="font-size: 30px; position: absolute; left:980px; top: 420px" > <jsp:include page="ViewName.jsp">
+                                    <label for="User" style="font-size: 30px; position: absolute; left:900px; top: 420px" > <jsp:include page="ViewName.jsp">
                                             <jsp:param name="AID" value="<%=AID%>" />
                                         </jsp:include></label>
                                     <table>
@@ -621,7 +627,7 @@
                                         </tr>                                        
                                         <tr>
                                             <td><label for="Preview">Preview</label></td>
-                                            <td><div class="blog-preview" id="blogPreview"></div></td>
+                                            <td><div class="blog-preview" id="blogPreview" style="font-weight: 100"></div></td>
                                         </tr>
                                     </table>
                                     <br>
@@ -704,6 +710,48 @@
                                 </fieldset>
                             </div>
                         </form>
+                        <div id="Contactyou" class="tabcontent">
+                            <fieldset class="made-up">
+                                <legend>Contacts</legend>
+                                <table id="customtable" style="position: relative; top:-80px; left:-250px;">                                    
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>PhoneNo</th>
+                                    <th>Message</th>                                
+                                    <%
+                                        rst = stmt.executeQuery("SELECT * FROM contactus WHERE AID='" + AID + "'");
+                                        while (rst.next()) {
+                                    %>
+
+                                    <tr>                             
+                                        <td><%=rst.getString(2)%></td>
+                                        <td><%=rst.getString(3)%></td>
+                                        <td><%=rst.getString(4)%></td>
+                                        <td><%=rst.getString(5)%></td>                                       
+                                    </tr>
+                                    <%}%>
+
+                                </table>
+                            </fieldset>
+                        </div>
+                        <div class="tabcontent" id="addlanguage">
+                            <fieldset class="made-up">
+                                <legend>Language</legend>
+                                <form action="AddLanguage.jsp" method="POST"> 
+                                <table>
+                                    <tr>
+                                        <td>Langugage</td>
+                                        <td><input type="text" id="usernameInput"></td>
+                                    </tr>
+                                </table>
+                                <input type="submit" id="custombtn" value="Add" name="Submit">
+                                </form><br><br>
+                                <table id="customtable">
+
+
+                                </table>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
             </div>

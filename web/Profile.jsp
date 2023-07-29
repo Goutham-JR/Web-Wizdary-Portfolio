@@ -336,7 +336,7 @@
 
             .Project-Images {
                 width: 100%;
-                height: auto;
+                height: 400px;
             }
 
             .Project-Title {
@@ -706,6 +706,8 @@
             .personal-count {
                 display: flex;
                 margin: 0px 50px;
+                position: relative;
+                left: 100px;
             }
 
             .personal-count-item {
@@ -830,6 +832,122 @@
                 bottom: -1px;
                 right: -17px;
             }
+
+            /* Add your existing CSS styles for other elements here */
+
+            .three-dot-menu {
+                position: relative;
+            }
+
+            .menu-icon {
+                cursor: pointer;
+                font-size: 24px;
+                position: relative;
+                left:200px;
+            }
+
+            .Adropdown-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+
+            .Amenu-item {
+                padding: 8px;
+                cursor: pointer;
+                background-color: black;
+            }
+            .Amenu-item:hover {
+                background-color: yellow;
+                color:black;
+            }
+
+            .Pthree-dot-menu {
+                position: relative;
+            }
+            .Pmenu-icon {
+                cursor: pointer;
+                font-size: 24px;
+                position: relative;
+                left:300px;
+                bottom: 100px;
+            }
+
+            .Pdropdown-menu {
+                display: none;
+                position: absolute;
+                bottom: 50px;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+
+            .Pmenu-item {
+                padding: 8px;
+                cursor: pointer;
+                background-color: black
+
+            }
+            .Pmenu-item:hover {
+                background-color: yellow;
+                color:black;
+            }
+
+            .Bthree-dot-menu {
+                position: relative;
+            }
+            .Bmenu-icon {
+                cursor: pointer;
+                font-size: 24px;
+                position: relative;
+                left: 1200px;
+                bottom: 150px;
+            }
+
+            .Bdropdown-menu {
+                display: none;
+                position: absolute;
+                bottom:100px;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+
+            .Bmenu-item {
+                padding: 8px;
+                cursor: pointer;
+                background-color: black
+
+            }
+            .Bmenu-item:hover {
+                background-color: yellow;
+                color:black;
+            }
+
+
+            /* Show the dropdown when the menu icon is clicked */
+            .show-dropdown {
+                display: block;
+            }
+
+            .remove-skill {
+                font-weight: bold;                
+                color: black;
+                position: relative;
+                top: -20px;
+                left:1280px;
+            }
+
+            .remove-skill:hover {
+                color: yellow;
+            }
+
         </style>
     </head>
 
@@ -869,9 +987,8 @@
                 String City = "";
                 String Residence = "";
                 String Experience = "";
-                String CompletedProjects = "";
-                String reviewedCustomers = "";
-                String Achivements = "";
+                int CompletedProjects = 0;                
+                int Achivements = 0;
 
                 try {
                     rst = stmt.executeQuery("SELECT * FROM profile WHERE AID='" + AID + "'");
@@ -883,13 +1000,27 @@
                         City = rst.getString(7);
                         Residence = rst.getString(8);
                         Experience = rst.getString(9);
-                        CompletedProjects = rst.getString(10);
-                        reviewedCustomers = rst.getString(11);
-                        Achivements = rst.getString(12);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                try {
+                    rst = stmt.executeQuery("SELECT * FROM achievements WHERE AID='" + AID + "'");
+                    while (rst.next()) {
+                       Achivements +=1;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    rst = stmt.executeQuery("SELECT * FROM projectshowcase WHERE AID='" + AID + "'");
+                    while (rst.next()) {
+                        CompletedProjects +=1;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
 
         %>
         <button onclick="topFunction()" id="gotopBtn" title="Go to top">Top</button>
@@ -948,7 +1079,7 @@
             <div class="left-box">
                 <div class="left-container">
                     <button class="left-btn" onclick="openPage(event, 'AboutMe')">About Me</button>
-                    <button class="left-btn" onclick="openPage(event, 'Achievements')">Achivements</button>
+                    <button class="left-btn" onclick="openPage(event, 'Achievements')">Achievements</button>
                     <button class="left-btn" onclick="openPage(event, 'ProjectShowCase')">Project
                         ShowCase</button>
                     <button class="left-btn" onclick="openPage(event, 'Blog')">Blog</button>
@@ -965,12 +1096,9 @@
                             </div>
                             <div class="personal-count-item">
                                 <count><%=CompletedProjects%></count> Completed Projects
-                            </div>
+                            </div>                            
                             <div class="personal-count-item">
-                                <count><%=reviewedCustomers%></count> Reviewed Customers
-                            </div>
-                            <div class="personal-count-item">
-                                <count><%=Achivements%></count> Achivements
+                                <count><%=Achivements%></count> Achievements
                             </div>
                         </div>
                         <hr>
@@ -995,38 +1123,18 @@
                         <div class="skills">
                             <h2>Skills</h2>
                             <ul>
-                                <%
-                                    rst = stmt.executeQuery("SELECT * FROM skills WHERE AID='" + AID + "'");
-                                    while (rst.next()) {
-                                %>
-                                <li>
-                                    <span class="skill-name"><%=rst.getString(2)%></span>
-                                    <div class="skill-bar">
-                                        <div class="skill-progress" style="width: <%=rst.getString(3).toString().concat("%")%>;"></div>
-                                    </div>
-                                </li>
-                                <%}%>        
+                                <div id="DisplaySkill"></div>      
                             </ul>
                         </div>
 
                         <div class="services">
-                            <button onclick="window.location.href='DownloadCV?AID=<%= AID %>'">Download CV <i class="fa fa-download"></i></button>
+                            <button onclick="window.location.href='DownloadCV?AID=<%= AID%>'">Download CV <i class="fa fa-download"></i></button>
                         </div>
                     </div>
                     <div id="Achievements" class="tabcontent">
-                        <h1>ACHIVEMENTS</h1>
+                        <h1>ACHIEVEMENTS</h1>
                         <div class="acontainer">
-                            <div class="aitems">
-                                <%
-                                    rst = stmt.executeQuery("SELECT * FROM Achievements WHERE AID='" + AID + "' order by Date");
-                                    while (rst.next()) {
-
-                                %>
-                                <div class="Achivement-left">
-                                    <img class="achivement-Images" src="ViewAchievements.jsp?ACID=<%=rst.getString(1)%>" alt="l">
-                                    <div class="Achivement-Title"><%=rst.getString(4)%></div>
-                                </div>
-                                <%}%>
+                            <div class="aitems" id="aitems">                                
                             </div>
                         </div>
                     </div>
@@ -1049,38 +1157,15 @@
                         <h1>PROJECT SHOWCASE</h1>
                         <div class="pcontainer">
                             <div class="pitems">
-                                <div class="pcontainer-left">
-                                    <%
-                                        rst = stmt.executeQuery("SELECT * FROM projectshowcase WHERE AID='" + AID + "'");
-                                        while (rst.next()) {
-                                    %>
-                                    <img class="Project-Images" src="ViewProjectSC.jsp?PSCID=<%=rst.getString(1)%>" alt="l">
-                                    <div class="Project-Title">
-                                        <%=rst.getString(4)%>
-                                        <div class="Project-Discription">
-                                            <%=rst.getString(6)%>
-                                        </div>
-                                    </div>
-                                    <%}%>
+                                <div class="pcontainer-left" id="pcontainer-left">
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="Blog" class="tabcontent">
                         <h1>BLOG</h1>
-                        <%
-                            rst = stmt.executeQuery("SELECT * FROM Blog WHERE AID='" + AID + "' order by Date DESC");
-                            while (rst.next()) {
-                        %>
-                        <article>
-                            <img class="bprofile-pic" src="ViewProfile.jsp?name=<%=AID%>">
-                            <h2><%=rst.getString(3)%></h2>
-                            <p>Published on <time datetime="2023-05-01"><%=rst.getString(5)%></time></p>
-
-                            <p><%=rst.getString(4)%></p>
-                            <hr>
-                        </article>
-                        <%}%>
+                        <div id="Displayblog"></div>
 
                     </div>
                 </div>
@@ -1094,11 +1179,11 @@
             </div>
             <div id="messages">               
             </div>
-                <div id="chat-form">
-                    <input type="text" id="chat-input" name="message" placeholder="Type your message here">
-                    <input type="hidden" name="AID" value="<%=AID%>">
-                    <button type="submit" class="sendmessagebtn" id="send-button" onclick="sendMessage()">Send<i class="fa fa-send"></i></button>
-                </div>
+            <div id="chat-form">
+                <input type="text" id="chat-input" name="message" placeholder="Type your message here">
+                <input type="hidden" name="AID" value="<%=AID%>">
+                <button type="submit" class="sendmessagebtn" id="send-button" onclick="sendMessage()">Send<i class="fa fa-send"></i></button>
+            </div>
         </div>
     </main>
     <script>
@@ -1145,13 +1230,63 @@
 
         sendmessage.addEventListener("click", function() {
             setTimeout(function() {
-            var messages = document.getElementById("messages");
+                var messages = document.getElementById("messages");
                 message.value = "";
                 messages.scrollTop = messages.scrollHeight;
             }, 500); // Delay of 0.5 seconds (500 milliseconds)
         });
 
 
+        function toggleDropdown(menuIcon) {
+            const dropdownMenu = menuIcon.nextElementSibling;
+            dropdownMenu.classList.toggle("show-dropdown");
+        }
+
+        function deleteAchievement(ACID) {            
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "DeleteAchievement.jsp?ACID="+ACID, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+            
+        }
+        
+        function deleteProject(PSCID) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "DeleteProject.jsp?PSCID="+PSCID, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        
+        function deleteBlog(BID) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "DeleteBlog.jsp?BID="+BID, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+        
+        function removeSkill(SKID) {
+             var xhr = new XMLHttpRequest();
+            xhr.open("GET", "DeleteSkill.jsp?SKID="+SKID, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
 
         function openChat() {
             document.getElementById("chatPopup").style.display = "block";
@@ -1164,31 +1299,84 @@
         }
         
         function sendMessage() {
-    var message = document.getElementById("chat-input").value;
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "sendmessage.jsp?AID=<%=AID%>&message="+message+"", true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            divToRefresh.innerHTML = xhr.responseText;
+            var message = document.getElementById("chat-input").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "sendmessage.jsp?AID=<%=AID%>&message="+message+"", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
         }
-    };
-    xhr.send();
-}
 
-      function refreshDiv() {
-    var divToRefresh = document.getElementById("messages");
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "fetch_messages.jsp?AID=<%=AID%>", true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            divToRefresh.innerHTML = xhr.responseText;
+        function refreshDiv() {
+            var divToRefresh = document.getElementById("messages");
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "fetch_messages.jsp?AID=<%=AID%>", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
         }
-    };
-    xhr.send();
-}
+        
+        function refreshAchievement() {
+            var divToRefresh = document.getElementById("aitems");
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "DisplayAchievements.jsp?AID=<%=AID%>", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+        function refreshProject() {
+            var divToRefresh = document.getElementById("pcontainer-left");
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "DisplayProjects.jsp?AID=<%=AID%>", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+        function refreshBlog() {
+            var divToRefresh = document.getElementById("Displayblog");
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "DisplayBlog.jsp?AID=<%=AID%>", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+        function refreshSkill() {
+            var divToRefresh = document.getElementById("DisplaySkill");
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "DisplaySkill.jsp?AID=<%=AID%>", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    divToRefresh.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
 
-refreshDiv();
-setInterval(refreshDiv, 1000);
+        refreshDiv();
+        refreshProject();
+        refreshAchievement();
+        refreshBlog();
+        refreshSkill();
+        setInterval(refreshDiv, 1000);
+        setInterval(refreshAchievement, 4000);
+        setInterval(refreshProject, 4000);
+        setInterval(refreshBlog, 4000);
+        setInterval(refreshSkill, 4000);
 
     </script>
 

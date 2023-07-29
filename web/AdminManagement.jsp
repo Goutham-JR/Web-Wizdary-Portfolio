@@ -69,6 +69,7 @@
                 width: 40px;
                 height: 40px;
                 margin-left: 10px;
+                padding-top: 40px;
             }
 
             .navname .sessionuser h2 {
@@ -77,6 +78,7 @@
                 padding-left: 10px;
                 padding-right: 30px;
                 color: white;
+                padding-top: 40px;
             }
 
 
@@ -266,7 +268,7 @@
                 border: 1px solid #ddd;
                 padding: 8px;
             }
-             #customtable td a{
+            #customtable td a{
                 text-decoration: none;
                 color: var(--Color-Btn);
             }
@@ -354,6 +356,9 @@
     </head>
 
     <body>
+        <%
+            String AID = session.getAttribute("SessionAID").toString();
+        %>
         <div class="main">           
             <div class="center">
                 <div class="leftdash">
@@ -409,8 +414,10 @@
                             <h3>Admin Dashboard</h3>
                         </div>
                         <div class="sessionuser">
-                            <img src="Images/confused.png" alt="">
-                            <h2>Goutham</h2>
+                            <img src="ViewProfile.jsp?name=<%=AID%>" alt="">
+                            <h2>  <jsp:include page="ViewName.jsp">
+                                    <jsp:param name="AID" value="<%= AID%>" />
+                                </jsp:include></h2>
                         </div>
                     </div>
                     <div class="rightmain">                    
@@ -545,14 +552,14 @@
                             <fieldset class="made-up">
                                 <legend>Remove Verification</legend>
                                 <form action="UpgradeAccount.jsp" method="POST">
-                                <table>
-                                    <tr>
-                                        <td>Username</td>
-                                        <td><input type="text" name="Username"></td>
-                                    </tr>
-                                </table>
+                                    <table>
+                                        <tr>
+                                            <td>Username</td>
+                                            <td><input type="text" name="Username"></td>
+                                        </tr>
+                                    </table>
                                     <input type="hidden" name="AccountType" value="Normal">
-                                <input type="submit" id="custombtn" value="Remove" name="RemoveVerification">
+                                    <input type="submit" id="custombtn" value="Remove" name="RemoveVerification">
                                 </form>
                             </fieldset>
                         </div>
@@ -588,7 +595,14 @@
                                         <i class="fa-solid fa-user"></i>
                                     </div>
                                     <div class="Count">
-                                        <p>500</p>
+                                        <%
+                                            int NoUser=0;
+                                            rst = stmt.executeQuery("SELECT * FROM account");
+                                            while (rst.next()) {
+                                                NoUser+=1;
+                                            }
+                                        %>
+                                        <p style="padding-left:25px;"><%=NoUser %></p>
                                         <p>Users</p>
                                     </div>
                                 </div>
@@ -597,8 +611,15 @@
                                         <i class="fa-solid fa-user"></i>
                                     </div>
                                     <div class="Count">
-                                        <p>500</p>
-                                        <p>Blog</p>
+                                        <%
+                                            int NoBlog=0;
+                                            rst = stmt.executeQuery("SELECT * FROM blog");
+                                            while (rst.next()) {
+                                                NoBlog+=1;
+                                            }
+                                        %>
+                                        <p style="padding-left:25px;"><%=NoBlog %></p>
+                                        <p>BLOG</p>
                                     </div>
                                 </div>
                             </div>

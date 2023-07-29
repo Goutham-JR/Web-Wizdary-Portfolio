@@ -201,10 +201,11 @@
                     session.setAttribute("SessionUser", username);
                     session.setAttribute("SessionAID",rst.getString("AID"));
                     session.setAttribute("SessionGrade", rst.getString(8));
-                      response.sendRedirect("index.jsp");
+                    out.print("<script>alert('Login Successful!');</script>");
+    out.print("<script>location.href='Loading.jsp?URL=Home.jsp';</script>");
                 } else {
-                    //TODO : ADD THE MESSAGE HERE
-                    response.sendRedirect("Login.jsp");
+                   out.print("<script>alert('Invalid credential.');</script>");
+    out.print("<script>location.href='Loading.jsp?URL=Login.jsp';</script>");
                 }
                                        
             }

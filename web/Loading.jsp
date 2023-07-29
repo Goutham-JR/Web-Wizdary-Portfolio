@@ -330,10 +330,10 @@
             setTimeout(function() {
                 var bodyID = document.getElementById("bodyID");
                 bodyID.classList.add('fade-out');                
-            }, 3000);
+            }, 2000);
             setTimeout(function() {
                 location.href = "<%=URL%>";
-            }, 4000);
+            }, 3000);
         </script>
     </body>
 </html>
