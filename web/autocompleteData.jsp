@@ -17,7 +17,7 @@
         Connection conn = DriverManager.getConnection(url, username, password);
         
         // Create a prepared statement to prevent SQL injection
-        String sql = "SELECT Username FROM account WHERE Username LIKE ? LIMIT 10";
+        String sql = "SELECT Username FROM account WHERE Username LIKE ? AND Username <> '"+session.getAttribute("SessionUser").toString() +"' LIMIT 10;";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, "%" + searchTerm + "%");
         

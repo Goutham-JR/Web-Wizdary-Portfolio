@@ -8,5 +8,6 @@
     String Address = request.getParameter("PrivacyAddress");
     Address = Address.replace("'", "\\'");
     stmt.executeUpdate("UPDATE Account SET Name='" + Name + "', DOB='" + DOB + "', Email='" + Email + "', Password='" + Password + "', Address='" + Address + "' WHERE AID='" + AID + "'");
-    response.sendRedirect("Loading.jsp?URL=Usermanage.jsp");
+    out.print("<script>alert('Account has been modified successfully');</script>");
+    out.print("<script>location.href='Loading.jsp?URL=Usermanage.jsp';</script>");
 %>

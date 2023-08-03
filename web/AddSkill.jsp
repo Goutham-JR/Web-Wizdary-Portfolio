@@ -5,5 +5,6 @@
     String skill = request.getParameter("skills[]");
     String percentage = request.getParameter("skillPercentages[]");
     stmt.executeUpdate("INSERT INTO Skills (AID, Skills, Percentage) VALUES ('" + AID + "', '" + skill + "', '" + percentage + "')");
-    response.sendRedirect("Loading.jsp?URL=Usermanage.jsp");
+    out.print("<script>alert('Added Skill Successfully!');</script>");
+    out.print("<script>location.href='Loading.jsp?URL=Usermanage.jsp';</script>");
 %>
