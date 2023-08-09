@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Messenger</title>
+        <title><%=Title %> - Messenger</title>
         <style>
             :root {
                 --Color-Btn: rgb(255, 255, 0);
@@ -250,11 +250,14 @@
         <div class="container">
             <div class="user-list">
                 <%
-                    rst = stmt.executeQuery("SELECT DISTINCT receiver FROM message where sender='" + session.getAttribute("SessionAID") + "'");
+               
+                    rst = stmt.executeQuery("SELECT DISTINCT receiver FROM message where sender='" + session.getAttribute("SessionAID") + "' order by date DESC");
                     while (rst.next()) {
 
                 %>
                 <!-- User List -->
+               
+
                 <div class="user" id="user" onclick="ShowMsg(<%=rst.getString(1)%>)">
                     <img src="ViewProfile.jsp?name=<%=rst.getString(1)%>">
                     <% String AID = rst.getString(1);%>
@@ -262,7 +265,8 @@
                         <jsp:param name="AID" value="<%= AID%>" />
                     </jsp:include>
                 </div>
-                <%}%>                
+                <%}
+                  %>                
             </div>
             <div class="main-right">
                 <div class="chat-window" id="chat-window">

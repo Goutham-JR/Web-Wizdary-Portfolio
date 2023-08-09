@@ -6,7 +6,9 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Blog</title>
+        <title><%=Title %> - Blog</title>
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
         <style>
             :root {
                 --Color-text-hover: #fffb00;
@@ -43,7 +45,7 @@
             /* Additional styles for specific elements */
             /* For example, you can add a background color to the header */
             article header {
-                background-color: #f5f5f5;
+                background-color: #666666;
                 padding: 10px;
                 border-radius: 5px;
             }
@@ -88,20 +90,28 @@
             #gotopBtn:hover {
                 background-color: #555;
             }
+            .profile-name{
+                position: relative;
+                left:70px;
+                bottom:55px;
+            }
         </style>
     </head>
 
     <body>
         <a href="Loading.jsp?URL=Home.jsp" id="gotopBtn" title="Go to top">Home</a>
-       <%
+        <%
             rst = stmt.executeQuery("SELECT * FROM Blog ORDER BY Date DESC");
             while (rst.next()) {
         %>
         <article>
             <header>
-                <img class="profile-pic" src="ViewProfile.jsp?name=<%=rst.getString(2) %>" alt="">
+                <a href="Loading.jsp?URL=Profile.jsp?AID=<%=rst.getString(2)%>"><img class="profile-pic" src="ViewProfile.jsp?name=<%=rst.getString(2)%>" alt=""></a><h4 class="profile-name"><jsp:include page="ViewName.jsp">
+                        <jsp:param name="AID" value="<%=rst.getString(2)%>" />
+                        </jsp:include></h4>
+
                 <h2><%=rst.getString(3)%></h2>
-                <p>Published on <time datetime="2023-05-01"><%=rst.getString(5)%></time><%=rst.getString(2) %></p>
+                <p><font color="black">Published on <time datetime="2023-05-01"><%=rst.getString(5)%></font></time></p>
             </header>
             <p><%=rst.getString(4)%></p>
             <hr>

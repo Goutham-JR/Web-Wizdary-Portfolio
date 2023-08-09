@@ -10,7 +10,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title><%=Title %> - Profile</title>
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
         <style>
@@ -1030,9 +1030,10 @@
         <img src="ViewProfile.jsp?name=<%=AID%>" class="Profile-Img" alt="">
         <div class="profile-rectangle">
             <div class="profile-about">
-                <h2><%=PName%> 
-                    <% if (AccountType.equals("Verified")) {%><i class="uil uil-comment-verify" style="color: yellow;"></i><%}%> </h2>
-                <p><%=Bio%>
+                <h2><jsp:include page="ViewName.jsp">
+                                            <jsp:param name="AID" value="<%=AID%>" />
+                                        </jsp:include></h2>
+                <p><%if(AccountType.equals("Banned")) {%> <s><font color="Gray"><%=Bio%></font></s><%}else{%><%=Bio%><%}%>
                 </p>
             </div>
             <%
@@ -1047,28 +1048,31 @@
             </div>
             <%}%>
             <div class="social-media">
-                <a href="<%=Facebook%>"><i class="fa fa-facebook" id="facebook"></i></a>
-                <a href="<%=Instagram%>"><i class="fa fa-instagram" id="instagram"></i></a>
-                <a href="<%=LinkedIn%>"><i class="fa fa-linkedin" id="linkedin"></i></a>
+                <%if(Facebook.equals("")){              
+                }else{%><a href="<%if(AccountType.equals("Banned")) {%>#<%}else{%><%=Facebook%><%}%>"><i class="fa fa-facebook" id="facebook"></i></a><%}%>
+                <%if(Instagram.equals("")){              
+                }else{%><a href="<%if(AccountType.equals("Banned")) {%>#<%}else{%><%=Instagram%><%}%>"><i class="fa fa-instagram" id="instagram"></i></a><%}%>
+                <%if(LinkedIn.equals("")){              
+                }else{%><a href="<%if(AccountType.equals("Banned")) {%>#<%}else{%><%=LinkedIn%><%}%>"><i class="fa fa-linkedin" id="linkedin"></i></a><%}%>
             </div>
 
             <div class="profile-details">
                 <div class="pitems">
                     <div class="profile-email">
                         <h4 class="Email">Email</h4>
-                        <p class="Email-para"><%=Email%></p>
+                        <p class="Email-para"><%if(AccountType.equals("Banned")) {%> <s><font color="Gray"><%=Email%></font></s><%}else{%><%=Email%><%}%></p>
                     </div>
                     <div class="profile-phoneno">
                         <h4 class="phoneno">Phone Number</h4>
-                        <p class="phoneno-para">(+91) <%=PhoneNo%></p>
+                        <p class="phoneno-para"><%if(AccountType.equals("Banned")) {%> <s><font color="Gray">(+91) <%=PhoneNo%></font></s><%}else{%>(+91) <%=PhoneNo%><%}%></p>
                     </div>
                     <div class="profile-dob">
                         <h4 class="DOB">Date of Birth</h4>
-                        <p class="DOB-para"><%=DOB%></p>
+                        <p class="DOB-para"><%if(AccountType.equals("Banned")) {%> <s><font color="Gray"><%=DOB%></font></s><%}else{%><%=DOB%><%}%></p>
                     </div>
                     <div class="profile-location">
                         <h4 class="location">Location</h4>
-                        <p class="location-para"><%=Address%></p>
+                        <p class="location-para"><%if(AccountType.equals("Banned")) {%> <s><font color="Gray"><%=Address%></font></s><%}else{%><%=Address%><%}%></p>
                     </div>
                 </div>
             </div>
@@ -1289,9 +1293,14 @@
         }
 
         function openChat() {
+            <%if(AccountType.equals("Banned")){%>
+                alert("Your not allowed to chat with him/her!");
+            <%}
+            else{%>           
             document.getElementById("chatPopup").style.display = "block";
             var messages = document.getElementById("messages");
             messages.scrollTop = messages.scrollHeight;
+            <%}%>
         }
 
         function closeChat() {

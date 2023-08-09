@@ -197,17 +197,22 @@
                 String password = request.getParameter("Password");
 
                 rst = stmt.executeQuery("Select * from Account where username='" + username + "' and password='" + password + "'");
-                if(rst.next()) {
-                    session.setAttribute("SessionUser", username);
-                    session.setAttribute("SessionAID",rst.getString("AID"));
-                    session.setAttribute("SessionGrade", rst.getString(8));
-                    out.print("<script>alert('Login Successful!');</script>");
-    out.print("<script>location.href='Loading.jsp?URL=Home.jsp';</script>");
+                if (rst.next()) {
+                    if (rst.getString("AccountType").equals("Banned")) {
+                        out.print("<script>alert('Your account is banned from Web Wizardry!');</script>");
+                        out.print("<script>location.href='Loading.jsp?URL=Login.jsp';</script>");
+                    } else {
+                        session.setAttribute("SessionUser", username);
+                        session.setAttribute("SessionAID", rst.getString("AID"));
+                        session.setAttribute("SessionGrade", rst.getString(8));
+                        out.print("<script>alert('Login Successful!');</script>");
+                        out.print("<script>location.href='Loading.jsp?URL=Home.jsp';</script>");
+                    }
                 } else {
-                   out.print("<script>alert('Invalid credential.');</script>");
-    out.print("<script>location.href='Loading.jsp?URL=Login.jsp';</script>");
+                    out.print("<script>alert('Invalid credential.');</script>");
+                    out.print("<script>location.href='Loading.jsp?URL=Login.jsp';</script>");
                 }
-                                       
+
             }
 
         %>
@@ -228,7 +233,7 @@
                     <label for="Password">Password <input type="Password" name="Password" placeholder="Enter the Password"
                                                           required></label>
                     <label for="rememberpsd"><input type="checkbox" name="rememberpsd"> Remember me</label>
-                    <a href="#">Forgot Password?</a>
+                    <a href="Loading.jsp?URL=ForgotPassword.jsp">Forgot Password?</a>
                     <input type="submit" value="Login">
                     <a href="Loading.jsp?URL=SignUp.jsp">Don't have an account? Click here</a>
                 </form>

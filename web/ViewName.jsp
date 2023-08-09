@@ -11,11 +11,18 @@
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Portfolio", "root", "Duelisto");
         stmt = con.createStatement();
-        rs = stmt.executeQuery("select Name from Account where AID = '" + name + "' ");
+        rs = stmt.executeQuery("select Name, AccountType from Account where AID = '" + name + "' ");
         if (rs.next()) {
-            AName = rs.getString(1);
+            if (rs.getString(2).equals("Banned")) {
+                AName = "<s><font color='Gray'>" + rs.getString(1) + "</font></s> <i class='fa-solid fa-ban'style='color: red;'></i>";
+            } else if(rs.getString(2).equals("Verified")) {
+                AName = rs.getString(1)+" <i class='uil uil-comment-verify' style='color: yellow;'></i>";
+            }else {
+                AName = rs.getString(1);
+            }
+            
         } else {
-            out.println("Name not found for the given AID : "+name);
+            out.println("Name not found for the given AID : " + name);
             return;
         }
         // display the name

@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/8fa998140f.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+        <title><%=Title%> - User management</title>
         <style>
             :root {
                 --Color-Btn: rgb(255, 255, 0);
@@ -741,7 +742,7 @@
                                 <table>
                                     <tr>
                                         <td>Langugage</td>
-                                        <td><input type="text" id="usernameInput"></td>
+                                        <td><input type="text" name="Lang" id="usernameInput"></td>
                                     </tr>
                                 </table>
                                 <input type="submit" id="custombtn" value="Add" name="Submit">

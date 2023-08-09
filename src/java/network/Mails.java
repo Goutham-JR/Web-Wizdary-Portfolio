@@ -11,7 +11,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-public class mail {
+public class Mails {
 
     public static boolean secretMail(String msg, String name, String email) {
         Properties props = new Properties();
@@ -24,7 +24,7 @@ public class mail {
         // Assuming you are sending email from localhost
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("smartdustbindustbin@gmail.com", "ledaucwuthlonked");
+                return new PasswordAuthentication("webwizardryproject@gmail.com", "cfkigmmbsqlhqctb");
             }
         });
 

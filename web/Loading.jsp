@@ -1,9 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Secure/Config.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">  
+        <title><%=Title%> - Redirecting</title>
         <style>
             body {
                 background-color: #f1c40f;
